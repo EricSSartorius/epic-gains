@@ -54,7 +54,11 @@ export default class Workout extends Component {
           <li>
             Time: {this.props.workout.workoutTime}
           </li>
+          <li>
+            Sets: {this.props.workout.noOfSets}
+          </li>
         </ul>
+        <button>View Workout</button>
       </div>
     );
   }

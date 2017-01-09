@@ -67,9 +67,11 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'workouts.insert'(workoutName, workoutType, workoutTime) {
+  'workouts.insert'(workoutName, workoutType, timedWorkout, noOfSets, workoutTime) {
     check(workoutName, String);
     check(workoutType, String);
+    check(timedWorkout, Boolean);
+    check(noOfSets, Number);
     check(workoutTime, Number);
 
     // Make sure the user is logged in before inserting a workout
@@ -80,7 +82,9 @@ Meteor.methods({
     Workouts.insert({
       workoutName,
       workoutType,
+      timedWorkout,
       workoutTime,
+      noOfSets,
       createdAt: new Date(),
       owner: this.userId,
       username: Meteor.users.findOne(this.userId).username,
@@ -121,5 +125,26 @@ Meteor.methods({
     }
 
     Workouts.update(workoutId, { $set: { private: setToPrivate } });
+  },
+  'workouts.update'(workoutId, workoutName, workoutType, timedWorkout, noOfSets, workoutTime) {
+    check(workoutId, String);
+    check(workoutName, String);
+    check(workoutType, String);
+    check(timedWorkout, Boolean);
+    check(noOfSets, Number);
+    check(workoutTime, Number);
+
+    const workout = Workouts.findOne(workoutId);
+
+    // Make sure only the workout owner can make a workout private
+    if (workout.owner !== this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    Workouts.update(workoutId, { $set: {
+       workoutName: workoutName,
+       workoutType: workoutType,
+       workoutTime: workoutTime,
+     } });
   },
 });

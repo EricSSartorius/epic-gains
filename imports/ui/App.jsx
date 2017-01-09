@@ -14,28 +14,33 @@ class App extends Component {
 
     this.state = {
       hideCompleted: false,
-      circuitWorkout: false
+      circuitWorkout: false,
+      timedWorkout: false
     };
   }
 
   handleWorkoutSubmit(event) {
    event.preventDefault();
 
-
-
    // Find the text field via the React ref
    const workoutName = ReactDOM.findDOMNode(this.refs.workoutNameInput).value.trim();
    const workoutType = this.state.circuitWorkout ? 'Circuit' : 'Normal';
+   const timedWorkout = this.state.timedWorkout ? true : false;
+   const noOfSets = parseInt(ReactDOM.findDOMNode(this.refs.workoutSetsInput).value.trim());
    const workoutTime = parseInt(ReactDOM.findDOMNode(this.refs.workoutTimeInput).value.trim());
-   console.log('Workout:', this.state.circuitWorkout);
-   console.log('Workout Type:', workoutType);
-   // Send to backend
-   Meteor.call('workouts.insert', workoutName, workoutType, workoutTime);
 
-   // Clear form
-   ReactDOM.findDOMNode(this.refs.workoutNameInput).value = '';
-   ReactDOM.findDOMNode(this.refs.workoutTimeInput).value = '';
-   this.state.circuitWorkout = false;
+
+   // Send to backend
+   Meteor.call('workouts.insert', workoutName, workoutType, timedWorkout, noOfSets, workoutTime, (err, res) => {
+     if(!err) {
+       // Clear form
+       ReactDOM.findDOMNode(this.refs.workoutNameInput).value = '';
+       ReactDOM.findDOMNode(this.refs.workoutTimeInput).value = '';
+       ReactDOM.findDOMNode(this.refs.workoutSetsInput).value = '';
+       this.state.circuitWorkout = false;
+       this.state.timedWorkout = false;
+     }
+   });
  }
 
   toggleHideCompleted() {
@@ -47,6 +52,12 @@ class App extends Component {
   toggleCircuitWorkout() {
     this.setState({
       circuitWorkout: !this.state.circuitWorkout
+    });
+  }
+
+  toggleTimedWorkout() {
+    this.setState({
+      timedWorkout: !this.state.timedWorkout
     });
   }
 
@@ -91,12 +102,25 @@ class App extends Component {
               />
               This is a circuit workout
             </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.timedWorkout}
+                onClick={this.toggleTimedWorkout.bind(this)}
+              />
+              This is a timed workout
+            </label>
+            <input
+              type="number"
+              ref="workoutSetsInput"
+              placeholder="Number of sets"
+            />
             <input
               type="number"
               ref="workoutTimeInput"
-              placeholder="workout time"
+              placeholder="Workout time"
             />
-            <button type="submit">Workout Submit</button>
+            <button type="submit">Create Workout</button>
           </form> : ''
         }
 
