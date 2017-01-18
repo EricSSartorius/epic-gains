@@ -6,7 +6,6 @@ import Workout from './Workout';
 import WorkoutForm from './pages/WorkoutForm';
 
 class App extends Component {
-
   render() {
     return (
       <div>
@@ -17,20 +16,6 @@ class App extends Component {
     );
   }
 }
-
-    {/* <h3>Incomplete Exercises: ({this.props.incompleteCount})</h3>
-    <label className="hide-completed">
-      <input
-        type="checkbox"
-        readOnly
-        checked={this.state.hideCompleted}
-        onClick={this.toggleState.bind(this, 'hideCompleted')}
-      />
-      Hide Completed Workouts
-    </label> */}
-
-
-
 
 export default createContainer(() => {
   Meteor.subscribe('workouts');
