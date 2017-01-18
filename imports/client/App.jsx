@@ -1,31 +1,23 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { Workouts } from '../api/workouts';
 import Workout from './Workout';
 import WorkoutForm from './pages/WorkoutForm';
-import AccountsUIWrapper from './AccountsUIWrapper';
 
 class App extends Component {
 
   render() {
     return (
       <div>
-        <AccountsUIWrapper />
-        <h1>APP</h1>
+        <h1>Workout Home</h1>
+        <button>Start a new workout</button>
+        <button>Continue an existing workout</button>
       </div>
     );
   }
 }
 
-App.propTypes = {
-
-};
-
-
-const ExerciseRoute = () => (
-  <div>
-    <h1>Exercises</h1>
     {/* <h3>Incomplete Exercises: ({this.props.incompleteCount})</h3>
     <label className="hide-completed">
       <input
@@ -36,12 +28,6 @@ const ExerciseRoute = () => (
       />
       Hide Completed Workouts
     </label> */}
-</div>
-)
-
-
-
-
 
 
 

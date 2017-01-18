@@ -2,10 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
 
-// Workout component - represents a single todo item
+// Workout component - represents a single workout
 export default class Workout extends Component {
   toggleChecked() {
-    // Set the checked property to the opposite of its current value
     Meteor.call('workouts.setChecked', this.props.workout._id, !this.props.workout.checked);
   }
 
@@ -56,6 +55,9 @@ export default class Workout extends Component {
           </li>
           <li>
             Sets: {this.props.workout.noOfSets}
+          </li>
+          <li>
+            Description: {this.props.workout.workoutDescription}
           </li>
         </ul>
         <button>View Workout</button>
