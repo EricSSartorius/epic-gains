@@ -1,8 +1,89 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
+import SimpleSchema from 'simpl-schema';
+import 'babel-polyfill';
 
 export const Workouts = new Mongo.Collection('workouts');
+
+const ExerciseSchema = new SimpleSchema({
+	createdAt: {
+		type: Date,
+		label: "Created At",
+		autoValue: function() {
+			return new Date()
+		}
+	},
+	exerciseDescription: {
+		type: String,
+		optional: true
+	},
+	exerciseName: {
+		type: String,
+		optional: true
+	},
+	exerciseTime: {
+		type: Number,
+		optional: true
+	},
+  exerciseType: {
+		type: String,
+		optional: true
+	},
+	intensity: {
+		type: Number,
+		optional: true
+	},
+	owner: {
+		type: String,
+		label: "",
+		autoValue: function() {
+			return this.userId
+		}
+	},
+  // username: {
+  //   type: String,
+  //   label: "username",
+  //   autoValue: function() {
+  //     return Meteor.users.findOne(this.userId).username
+  //   }
+  // }
+});
+
+const WorkoutsSchema = new SimpleSchema({
+	createdAt: {
+		type: Date,
+		label: "Created At",
+		autoValue: function() {
+			return new Date()
+		}
+	},
+  exercises: {
+		type: ExerciseSchema,
+		optional: true
+	},
+	noOfSets: Number,
+	owner: {
+		type: String,
+		label: "owner",
+		autoValue: function() {
+			return this.userId
+		}
+	},
+	timedWorkout: Boolean,
+	// username: {
+	// 	type: String,
+	// 	label: "username",
+	// 	autoValue: function() {
+	// 		return Meteor.users.findOne(this.userId).username
+	// 	}
+	// },
+	workoutDescription: String,
+  workoutName: String,
+  workoutTime: Number,
+  workoutType: String
+});
+
+Workouts.attachSchema(WorkoutsSchema);
 
 if (Meteor.isServer) {
   // This code only runs on the server
@@ -18,33 +99,25 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'workouts.insert'(workoutName, workoutType, timedWorkout, noOfSets, workoutTime, workoutDescription) {
-    check(workoutName, String);
-    check(workoutType, String);
-    check(timedWorkout, Boolean);
-    check(noOfSets, Number);
-    check(workoutTime, Number);
-    check(workoutDescription, String);
+  'workouts.insert'(noOfSets, timedWorkout, workoutDescription, workoutName, workoutTime, workoutType ) {
 
     // Make sure the user is logged in before inserting a workout
     if (! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-
     Workouts.insert({
+      createdAt: new Date(),
+      noOfSets,
+      owner: this.userId,
+      timedWorkout,
+      // username: Meteor.users.findOne(this.userId).username,
+      workoutDescription,
       workoutName,
       workoutType,
-      timedWorkout,
-      workoutTime,
-      noOfSets,
-      workoutDescription,
-      createdAt: new Date(),
-      owner: this.userId,
-      username: Meteor.users.findOne(this.userId).username,
+      workoutTime
     });
   },
   'workouts.remove'(workoutId) {
-    check(workoutId, String);
 
     const workout = Workouts.findOne(workoutId);
     if (workout.private && workout.owner !== this.userId) {
@@ -55,8 +128,6 @@ Meteor.methods({
     Workouts.remove(workoutId);
   },
   'workouts.setChecked'(workoutId, setChecked) {
-    check(workoutId, String);
-    check(setChecked, Boolean);
 
     const workout = Workouts.findOne(workoutId);
     if (workout.private && workout.owner !== this.userId) {
@@ -67,8 +138,6 @@ Meteor.methods({
     Workouts.update(workoutId, { $set: { checked: setChecked } });
   },
   'workouts.setPrivate'(workoutId, setToPrivate) {
-    check(workoutId, String);
-    check(setToPrivate, Boolean);
 
     const workout = Workouts.findOne(workoutId);
 
@@ -79,14 +148,7 @@ Meteor.methods({
 
     Workouts.update(workoutId, { $set: { private: setToPrivate } });
   },
-  'workouts.update'(workoutId, workoutName, workoutType, timedWorkout, noOfSets, workoutTime, workoutDescription) {
-    check(workoutId, String);
-    check(workoutName, String);
-    check(workoutType, String);
-    check(timedWorkout, Boolean);
-    check(noOfSets, Number);
-    check(workoutTime, Number);
-    check(workoutDescription, String);
+  'workouts.update'(workoutId, noOfSets, timedWorkout, workoutDescription, workoutName, workoutType,  workoutTime) {
 
     const workout = Workouts.findOne(workoutId);
 
@@ -96,12 +158,12 @@ Meteor.methods({
     }
 
     Workouts.update(workoutId, { $set: {
-       workoutName: workoutName,
-       workoutType: workoutType,
-       timedWorkout: timedWorkout,
-       noOfSets: noOfSets,
-       workoutTime: workoutTime,
-       workoutDescription: workoutDescription
+      noOfSets: noOfSets,
+      timedWorkout: timedWorkout,
+      workoutDescription: workoutDescription,
+      workoutName: workoutName,
+      workoutType: workoutType,
+      workoutTime: workoutTime
      } });
   },
 });

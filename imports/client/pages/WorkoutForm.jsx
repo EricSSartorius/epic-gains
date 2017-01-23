@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Workouts } from '/imports/api/workouts';
+import { Workouts } from '/imports/api/Workouts';
 import Workout from '../Workout';
 
 class WorkoutForm extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       hideCompleted: false,
       circuitWorkout: false,
@@ -24,12 +23,12 @@ class WorkoutForm extends Component {
     const workoutName = ReactDOM.findDOMNode(this.refs.workoutNameInput).value.trim();
     const workoutType = this.state.circuitWorkout ? 'Circuit' : 'Normal';
     const timedWorkout = this.state.timedWorkout;
-    const noOfSets = parseInt(ReactDOM.findDOMNode(this.refs.workoutSetsInput).value.trim());
-    const workoutTime = parseInt(ReactDOM.findDOMNode(this.refs.workoutTimeInput).value.trim());
+    const noOfSets = ReactDOM.findDOMNode(this.refs.workoutSetsInput).value.trim();
+    const workoutTime = ReactDOM.findDOMNode(this.refs.workoutTimeInput).value.trim();
     const workoutDescription = ReactDOM.findDOMNode(this.refs.workoutDescriptionInput).value.trim();
 
     // Send to backend
-    Meteor.call('workouts.insert', workoutName, workoutType, timedWorkout, noOfSets, workoutTime, workoutDescription, (err, res) => {
+    Meteor.call('workouts.insert', noOfSets, timedWorkout, workoutDescription, workoutName, workoutTime, workoutType, (err, res) => {
      if(!err) {
        // Clear form
        ReactDOM.findDOMNode(this.refs.workoutNameInput).value = '';
@@ -38,13 +37,13 @@ class WorkoutForm extends Component {
        ReactDOM.findDOMNode(this.refs.workoutDescriptionInput).value = '';
        this.state.circuitWorkout = false;
        this.state.timedWorkout = false;
+     } else {
+       console.log(err);
      }
     });
   }
 
   toggleState(id) {
-   console.log(id);
-   console.log(this);
    let newState = Object.assign({}, this.state); // Getting the state object, not a reference to it as we don't want to modify state directly
    newState[id] = !this.state[id];
    this.setState(newState);
@@ -70,7 +69,6 @@ class WorkoutForm extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         { this.props.currentUser ?

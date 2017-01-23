@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Workouts } from '../api/workouts';
+import { Workouts } from '../api/Workouts';
 import Workout from './Workout';
 import WorkoutForm from './pages/WorkoutForm';
 

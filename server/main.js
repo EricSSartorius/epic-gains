@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-import '../imports/api/workouts';
+import '../imports/api/Workouts';
 
 Meteor.startup(() => {
   // code to run on server at startup
