@@ -43,6 +43,14 @@ class WorkoutForm extends Component {
     });
   }
 
+  // showAll() {
+  //   if(this.props.showAll) {
+  //     Session.set('showAll', false);
+  //   } else {
+  //     Session.set('showAll', true);
+  //   }
+  // }
+
   toggleState(id) {
    let newState = Object.assign({}, this.state); // Getting the state object, not a reference to it as we don't want to modify state directly
    newState[id] = !this.state[id];
@@ -71,6 +79,7 @@ class WorkoutForm extends Component {
   render() {
     return (
       <div>
+        <h1>Workout Form</h1>
         { this.props.currentUser ?
           <form className="new-workout" onSubmit={this.handleSubmit.bind(this)} >
             <input
@@ -127,7 +136,6 @@ WorkoutForm.propTypes = {
   incompleteCount: PropTypes.number.isRequired,
   currentUser: PropTypes.object,
 };
-
 
 export default createContainer(() => {
   Meteor.subscribe('workouts');

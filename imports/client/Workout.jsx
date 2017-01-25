@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
+import { autobind } from 'core-decorators';
 
 // Workout component - represents a single workout
+@autobind
 export default class Workout extends Component {
-  toggleChecked() {
-    Meteor.call('workouts.setChecked', this.props.workout._id, !this.props.workout.checked);
-  }
 
   deleteThisWorkout() {
     Meteor.call('workouts.remove', this.props.workout._id);
@@ -14,6 +13,8 @@ export default class Workout extends Component {
 
   togglePrivate() {
     Meteor.call('workouts.setPrivate', this.props.workout._id, ! this.props.workout.private);
+    console.log(this.props.workout._id);
+    console.log(this.props.workout.private);
   }
 
   render() {
@@ -26,19 +27,12 @@ export default class Workout extends Component {
 
     return (
       <div className={workoutClassName}>
-        <button className="delete" onClick={this.deleteThisWorkout.bind(this)}>
+        <button className="delete" onClick={this.deleteThisWorkout}>
           &times;
         </button>
 
-        <input
-          type="checkbox"
-          readOnly
-          checked={this.props.workout.checked}
-          onClick={this.toggleChecked.bind(this)}
-        />
-
         { this.props.showPrivateButton ? (
-          <button className="toggle-private" onClick={this.togglePrivate.bind(this)}>
+          <button className="toggle-private" onClick={this.togglePrivate}>
             { this.props.workout.private ? 'Private' : 'Public' }
           </button>
         ) : ''}
