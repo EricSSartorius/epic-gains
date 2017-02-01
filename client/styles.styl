@@ -1,0 +1,69 @@
+@require './styl/pages/_main.styl'
+@require './styl/utils/_type.styl'
+@require './styl/utils/_utilities.styl'
+
+@require './styl/_easings.styl'
+@require './styl/_vars.styl'
+@require './styl/_funcs.styl'
+
+normalize-css()
+
+html
+  box-sizing: border-box
+  height 100%
+
+*
+*:before
+*:after
+  box-sizing: inherit
+
+body
+  height 100%
+  padding-top: $headHeight
+  > div, > div > div
+      height 100%
+
+// .page-wrapper
+//   min-height: 100%
+
+header
+  background gray
+  box-shadow: $shadow
+  fixed top left
+  height $headHeight
+  text-align center
+  transition all 0.3s ease
+  width 100%
+  z-index: z.nav
+  clearfix()
+
+#login-buttons
+  display block
+  .login-button
+    @extend .button
+  #login-buttons-twitter
+    background: white
+    border: none
+    color: social.twitter
+  +above($large)
+    display inline-block
+  #login-dropdown-list
+    border none
+    border-radius 0
+    box-shadow: $shadow
+    margin $margins * 0
+    position fixed
+    input[type=password], input[type=email]
+      appearance none
+      background: #111
+      border none
+      border-bottom: solid 2px white
+      border-radius 0
+      margin-bottom $margins
+      padding: $padding
+    label
+      display: block;
+      text-align: left;
+      text-transform: uppercase;
+    +above($large)
+      padding: 5% 15%
