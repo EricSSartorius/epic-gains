@@ -26,9 +26,7 @@ class App extends Component {
         <button>Find a workout</button>
 
         {/* if account and workouts exist */}
-        <button>Start a new workout</button>
-        <button>Continue an existing workout</button>
-        <button></button>
+        <button>(Name of workout) is in progress, do you want to continue?</button>
       </div>
     );
   }
