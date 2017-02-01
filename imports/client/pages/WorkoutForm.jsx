@@ -10,7 +10,7 @@ class WorkoutForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hideCompleted: false,
+      // hideCompleted: false,
       circuitWorkout: false,
       timedWorkout: false
     };
@@ -59,9 +59,9 @@ class WorkoutForm extends Component {
 
   renderWorkouts() {
     let filteredWorkouts = this.props.workouts;
-    if (this.state.hideCompleted) {
-      filteredWorkouts = filteredWorkouts.filter(workout => !workout.checked);
-    }
+    // if (this.state.hideCompleted) {
+    //   filteredWorkouts = filteredWorkouts.filter(workout => !workout.checked);
+    // }
     return filteredWorkouts.map((workout) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
       const showPrivateButton = workout.owner === currentUserId;
@@ -77,9 +77,14 @@ class WorkoutForm extends Component {
   }
 
   render() {
+    if (!this.props.ready) {
+      return <div> Loading </div>
+    }
+
     return (
       <div>
         <h1>Workout Form</h1>
+
         { this.props.currentUser ?
           <form className="new-workout" onSubmit={this.handleSubmit.bind(this)} >
             <input
@@ -133,16 +138,46 @@ class WorkoutForm extends Component {
 
 WorkoutForm.propTypes = {
   workouts: PropTypes.array.isRequired,
-  incompleteCount: PropTypes.number.isRequired,
   currentUser: PropTypes.object,
 };
 
+// export default createContainer(({params}) => {
+//   let workoutsSub = Meteor.subscribe('workouts');
+//   let userSub = Meteor.subscribe('currentUser');
+//   let workoutsArray;
+//   if(params.id) {
+//     workoutsArray = Workouts.find({_id: params.id}).fetch();
+//   } else {
+//     workoutsArray = Workouts.find({}, {
+//       // limit: showAll ? 50 : 1,
+//       sort: { lastUpdated: 1 }
+//     }).fetch()
+//   }
+//   return {
+//     currentUser: Meteor.user(),
+//     ready: workoutsSub.ready() && userSub.ready(),
+//     workouts: workoutsArray
+//   };
+// }, WorkoutForm);
+
+
 export default createContainer(() => {
-  Meteor.subscribe('workouts');
+  let workoutsSub = Meteor.subscribe('workouts');
+  let userSub = Meteor.subscribe('currentUser');
+  //   let workoutsArray;
+  //   if(params.id) {
+  //     workoutsArray = Workouts.find({_id: params.id}).fetch();
+  //   } else {
+  //     workoutsArray = Workouts.find({}, {
+  //       // limit: showAll ? 50 : 1,
+  //       sort: { lastUpdated: 1 }
+  //     }).fetch()
+  //   }
 
   return {
-    workouts: Workouts.find({}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: Workouts.find({ checked: { $ne: true } }).count(),
     currentUser: Meteor.user(),
+    ready: workoutsSub.ready() && userSub.ready(),
+    workouts: Workouts.find({}, { sort: { createdAt: -1 } }).fetch()
+    //     workouts: workoutsArray
   };
 }, WorkoutForm);

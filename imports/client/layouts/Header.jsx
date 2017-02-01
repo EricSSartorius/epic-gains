@@ -10,6 +10,7 @@ const Header = () =>
     <Link to='/workout'>Workouts</Link>
     <Link to='/exercise'>Exercises</Link>
     <Link to='/timer'>Timer</Link>
+    <Link to='/library'>Library</Link>
   </header>
 
   export default Header;

@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
 
 class ExerciseForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hideCompleted: false,
+      weightedExercise: false,
+      timedExercise: false
+    };
+  }
 
   render() {
     return (

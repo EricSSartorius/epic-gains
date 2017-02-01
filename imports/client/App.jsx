@@ -15,29 +15,39 @@ class App extends Component {
     return (
       <div>
         <h1>Workout Home</h1>
+
+        {/* **below to be switched with dynamic functions */}
+
+        {/* if no account */}
+        <button>Sign up to get started</button>
+
+        {/* if account but no workouts*/}
+        <button>Create a new workout</button>
+        <button>Find a workout</button>
+
+        {/* if account and workouts exist */}
         <button>Start a new workout</button>
         <button>Continue an existing workout</button>
+        <button></button>
       </div>
     );
   }
 }
 
-export default createContainer(({params}) => {
-  let workoutsSub = Meteor.subscribe('workouts');
+export default createContainer(() => {
+  // let workoutSub = Meteor.subscribe('workouts');
   let userSub = Meteor.subscribe('currentUser');
   // let showAll = Session.get('showAll');
-  let workoutsArray;
-  if(params.id) {
-    workoutsArray = Workouts.find({_id: params.id}).fetch();
-  } else {
-    workoutsArray = Workouts.find({}, {
-      // limit: showAll ? 50 : 1,
-      sort: { lastUpdated: 1 }
-    }).fetch()
-  }
+
   return {
     // showAll,
-    ready: workoutsSub.ready() && userSub.ready(),
-    items: workoutsArray
-  }
+    ready: userSub.ready(),
+    // workouts: Workouts.find({}, {
+    //   sort: { createdAt: -1 }
+    // }).fetch(),
+    // incompleteCount: Workouts.find({
+    //   checked: { $ne: true }
+    // }).count(),
+    currentUser: Meteor.user()
+  };
 }, App);
