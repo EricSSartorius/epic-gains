@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-import AccountsUIWrapper from '../AccountsUIWrapper';
+import AccountsUIWrapper from '../utilities/AccountsUIWrapper';
 
 const Header = () =>
   <header>
@@ -10,6 +10,7 @@ const Header = () =>
     <Link to='/workout'>Workouts</Link>
     <Link to='/exercise'>Exercises</Link>
     <Link to='/timer'>Timer</Link>
+    <Link to='/library'>Library</Link>
   </header>
 
   export default Header;

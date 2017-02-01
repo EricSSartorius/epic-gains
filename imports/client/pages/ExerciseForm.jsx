@@ -1,19 +1,45 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import { createContainer } from 'meteor/react-meteor-data';
 
-const ExerciseForm = () =>
-  <div>
-    <h1>Exercise Form</h1>
+class ExerciseForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hideCompleted: false,
+      weightedExercise: false,
+      timedExercise: false
+    };
+  }
 
-    {/* <h3>Incomplete Exercises: ({this.props.incompleteCount})</h3>
-    <label className="hide-completed">
-      <input
-        type="checkbox"
-        readOnly
-        checked={this.state.hideCompleted}
-        onClick={this.toggleState.bind(this, 'hideCompleted')}
-      />
-      Hide Completed Workouts
-    </label> */}
-  </div>
+  render() {
+    return (
+      <div>
+        <h1>Exercise Form</h1>
 
-export default ExerciseForm;
+        {/* <h3>Incomplete Exercises: ({this.props.incompleteCount})</h3>
+        <label className="hide-completed">
+          <input
+            type="checkbox"
+            readOnly
+            checked={this.state.hideCompleted}
+            onClick={this.toggleState.bind(this, 'hideCompleted')}
+          />
+          Hide Completed Exercises
+        </label> */}
+      </div>
+    )
+  }
+}
+
+ExerciseForm.propTypes = {
+
+};
+
+export default createContainer(() => {
+  Meteor.subscribe('workouts');
+
+  return {
+
+  };
+}, ExerciseForm);

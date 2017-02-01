@@ -40,13 +40,13 @@ const ExerciseSchema = new SimpleSchema({
 			return this.userId
 		}
 	},
-  // username: {
-  //   type: String,
-  //   label: "username",
-  //   autoValue: function() {
-  //     return Meteor.users.findOne(this.userId).username
-  //   }
-  // }
+  username: {
+    type: String,
+    label: "username",
+    autoValue: function() {
+      return Meteor.users.findOne(this.userId).username
+    }
+  }
 });
 
 const WorkoutsSchema = new SimpleSchema({
@@ -61,7 +61,10 @@ const WorkoutsSchema = new SimpleSchema({
 		type: ExerciseSchema,
 		optional: true
 	},
-	noOfSets: Number,
+	noOfSets: {
+		type: String,
+		optional: true
+	},
 	owner: {
 		type: String,
 		label: "owner",
@@ -70,16 +73,22 @@ const WorkoutsSchema = new SimpleSchema({
 		}
 	},
 	timedWorkout: Boolean,
-	// username: {
-	// 	type: String,
-	// 	label: "username",
-	// 	autoValue: function() {
-	// 		return Meteor.users.findOne(this.userId).username
-	// 	}
-	// },
-	workoutDescription: String,
+	username: {
+		type: String,
+		label: "username",
+		autoValue: function() {
+			return Meteor.users.findOne(this.userId).username
+		}
+	},
+	workoutDescription: {
+		type: String,
+		optional: true
+	},
   workoutName: String,
-  workoutTime: Number,
+  workoutTime:  {
+		type: Number,
+		optional: true
+	},
   workoutType: String
 });
 
@@ -110,7 +119,7 @@ Meteor.methods({
       noOfSets,
       owner: this.userId,
       timedWorkout,
-      // username: Meteor.users.findOne(this.userId).username,
+      username: Meteor.users.findOne(this.userId).username,
       workoutDescription,
       workoutName,
       workoutType,
