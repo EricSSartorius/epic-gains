@@ -14,19 +14,19 @@ class App extends Component {
 
     return (
       <div>
-        <h1>Workout Home</h1>
+        <h1>Epic Gains</h1>
 
         {/* **below to be switched with dynamic functions */}
 
         {/* if no account */}
-        <button>Sign up to get started</button>
+        <p>Sign up to get started</p>
 
         {/* if account but no workouts*/}
-        <button>Create a new workout</button>
-        <button>Find a workout</button>
+        <p>Create a new workout</p>
+        <p>Find a workout</p>
 
         {/* if account and workouts exist */}
-        <button>(Name of workout) is in progress, do you want to continue?</button>
+        <p>(Name of workout) is in progress, do you want to continue?</p>
       </div>
     );
   }

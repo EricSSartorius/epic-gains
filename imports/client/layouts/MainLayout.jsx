@@ -4,9 +4,11 @@ import Header from './Header';
 import Footer from './Footer';
 
 const MainLayout = ({children}) =>
-  <div className="main-layout">
+  <div>
     <Header />
-    {children}
+    <main className="main-layout">
+      {children}
+    </main>
     <Footer />
   </div>
 
