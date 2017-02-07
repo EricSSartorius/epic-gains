@@ -1,10 +1,9 @@
 @import 'nib'
 @import './styl/pages/_layouts.import'
 @import './styl/utils/_type.import'
-@import './styl/utils/_utilities.import'
-@import './styl/_easings.import'
-@import './styl/_vars.import'
-@import './styl/_funcs.import'
+// @import './styl/_easings.import'
+// @import './styl/_vars.import'
+// @import './styl/_funcs.import'
 
 normalize-css();
 
@@ -27,11 +26,45 @@ body
 //   min-height: 100%
 
 header
-  background gray
-  box-shadow: $shadow
+  background green
+  box-shadow $shadow
   fixed top left
   height $headHeight
+  padding $padding * 2 $padding
   transition all 0.3s ease
   width 100%
   z-index: z.nav
+  nav
+    float left
+    a
+      margin $margins
   clearfix()
+
+footer
+  background gray
+  fixed bottom left
+  transition all 0.3s ease
+  width 100%
+
+/* BUTTONS */
+button
+.button
+  background green
+  border none
+  border-radius $rounded
+  color: textColor.button
+  trans()
+  &:hover
+    background green - 20
+
+/* LOGIN */
+#login-buttons
+  float right
+  .login-button
+    @extend .button
+  #login-dropdown-list
+    border none
+    border-radius 0
+    box-shadow: $shadow
+    margin $margins * 0
+    position fixed

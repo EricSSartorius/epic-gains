@@ -11,10 +11,35 @@ body
   font-size $baseText
   line-height 1.5
 
+{ allHeadings }
+  color: textColor.headline
+
+a
+.link
+  color: textColor.link
+  text-decoration none
+
 ol
 ul
   list-style none
+  padding-left 0
 
-a
-  color: textColor.link
-  text-decoration none
+/* FORMS */
+
+form
+  padding $padding
+  button
+  label
+    display block
+    margin $margins $margins * 2
+  input[type="text"]
+  input[type="email"]
+  input[type="password"]
+  input[type="tel"]
+  input[type="number"]
+  select
+    @extend form button
+    background-color white
+    border 1px solid gray;
+    border-radius $rounded / 2
+    box-sizing border-box

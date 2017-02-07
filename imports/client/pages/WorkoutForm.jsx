@@ -64,13 +64,11 @@ class WorkoutForm extends Component {
     // }
     return filteredWorkouts.map((workout) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = workout.owner === currentUserId;
 
       return (
         <Workout
           key={workout._id}
           workout={workout}
-          showPrivateButton={showPrivateButton}
         />
       );
     });
@@ -82,7 +80,7 @@ class WorkoutForm extends Component {
     }
 
     return (
-      <div>
+      <div className ="workout-layout">
         <h1>Workout Form</h1>
 
         { this.props.currentUser ?
@@ -98,15 +96,15 @@ class WorkoutForm extends Component {
                 checked={this.state.circuitWorkout}
                 onClick={this.toggleState.bind(this, 'circuitWorkout')}
               />
-              This is a circuit workout
+              <span>This is a circuit workout</span>
             </label>
             <label>
               <input
                 type="checkbox"
                 checked={this.state.timedWorkout}
                 onClick={this.toggleState.bind(this, 'timedWorkout')}
-              />
-              This is a timed workout
+              /> 
+              <span>This is a timed workout</span>
             </label>
             <input
               type="number"

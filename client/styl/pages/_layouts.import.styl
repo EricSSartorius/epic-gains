@@ -3,21 +3,36 @@
 @import '../_easings.import'
 @import '../_funcs.import'
 
-// MAINLAYOUT
+/* MAINLAYOUT */
 .main-layout
   margin $margins * 6 auto
   width 100%
   @media (min-width $large)
       width 90%
 
-// HOME
+/* HOME */
 
-// WORKOUTS
+/* WORKOUTS */
+.workout-layout
+  form
+    background-color gray
+  .workout
+    border 1px solid gray
+    box-shadow $shadow
+    display inline-block
+    margin $margins
+    padding $padding * 2
+    p
+      text-align center
+      a
+        color: textColor.linkInverse
+    .delete
+      float right
 
-// EXERCISES
+/* EXERCISES */
 
-// TIMER
+/* TIMER */
 
-// LIBRARY
+/* LIBRARY */
 
-// FOOTER
+/* FOOTER */
