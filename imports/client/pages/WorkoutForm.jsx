@@ -10,8 +10,8 @@ class WorkoutForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // hideCompleted: false,
       circuitWorkout: false,
+      search: '',
       timedWorkout: false
     };
   }
@@ -43,6 +43,24 @@ class WorkoutForm extends Component {
     });
   }
 
+  renderWorkouts() {
+    let filteredWorkouts = this.props.workouts.filter(
+      (workout) => {
+        return workout.workoutName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+      }
+    );
+    return filteredWorkouts.map((workout) => {
+      const currentUserId = this.props.currentUser && this.props.currentUser._id;
+
+      return (
+        <Workout
+          key={workout._id}
+          workout={workout}
+        />
+      );
+    });
+  }
+  
   // showAll() {
   //   if(this.props.showAll) {
   //     Session.set('showAll', false);
@@ -57,21 +75,8 @@ class WorkoutForm extends Component {
    this.setState(newState);
   }
 
-  renderWorkouts() {
-    let filteredWorkouts = this.props.workouts;
-    // if (this.state.hideCompleted) {
-    //   filteredWorkouts = filteredWorkouts.filter(workout => !workout.checked);
-    // }
-    return filteredWorkouts.map((workout) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
-
-      return (
-        <Workout
-          key={workout._id}
-          workout={workout}
-        />
-      );
-    });
+  updateSearch(event) {
+    this.setState({search: event.target.value.substr(0,20)});
   }
 
   render() {
@@ -84,51 +89,62 @@ class WorkoutForm extends Component {
         <h1>Workout Form</h1>
 
         { this.props.currentUser ?
-          <form className="new-workout" onSubmit={this.handleSubmit.bind(this)} >
-            <input
-              type="text"
-              ref="workoutNameInput"
-              placeholder="Workout name"
-            />
-            <label>
+          <div>
+            <form className="new-workout" onSubmit={this.handleSubmit.bind(this)} >
               <input
-                type="checkbox"
-                checked={this.state.circuitWorkout}
-                onClick={this.toggleState.bind(this, 'circuitWorkout')}
+                type="text"
+                ref="workoutNameInput"
+                placeholder="Workout name"
               />
-              <span>This is a circuit workout</span>
-            </label>
-            <label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={this.state.circuitWorkout}
+                  onClick={this.toggleState.bind(this, 'circuitWorkout')}
+                />
+                <span>This is a circuit workout</span>
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={this.state.timedWorkout}
+                  onClick={this.toggleState.bind(this, 'timedWorkout')}
+                />
+                <span>This is a timed workout</span>
+              </label>
               <input
-                type="checkbox"
-                checked={this.state.timedWorkout}
-                onClick={this.toggleState.bind(this, 'timedWorkout')}
-              /> 
-              <span>This is a timed workout</span>
-            </label>
-            <input
-              type="number"
-              ref="workoutSetsInput"
-              placeholder="Number of sets"
-            />
-            <input
-              type="number"
-              ref="workoutTimeInput"
-              placeholder="Workout time"
-            />
-            <input
-              type="text"
-              ref="workoutDescriptionInput"
-              placeholder="Workout description"
-            />
-            <button type="submit">Create Workout</button>
-          </form> : ''
-       }
-
-       <div>
-         {this.renderWorkouts()}
-       </div>
-
+                type="number"
+                ref="workoutSetsInput"
+                placeholder="Number of sets"
+              />
+              <input
+                type="number"
+                ref="workoutTimeInput"
+                placeholder="Workout time"
+              />
+              <input
+                type="text"
+                ref="workoutDescriptionInput"
+                placeholder="Workout description"
+              />
+              <button type="submit">Create Workout</button>
+            </form>
+            <div>
+              {/* <p>Filter Workouts</p>
+              <button onClick={this.toggleFilter.bind(this,'workoutName')}>Name</button>
+              <button onClick={this.toggleFilter.bind(this,'workoutType')}>Type</button>
+              <button onClick={this.toggleFilter.bind(this,'createdAt')}>Date Added</button>
+              <button>Recent</button> */}
+              <p>Find Workout</p>
+              <input type="text"
+                value={this.state.search}
+                onChange={this.updateSearch.bind(this)}/>
+            </div>
+            <div>
+              {this.renderWorkouts()}
+            </div>
+          </div> : ''
+        }
       </div>
     )
   }
@@ -139,43 +155,18 @@ WorkoutForm.propTypes = {
   currentUser: PropTypes.object,
 };
 
-// export default createContainer(({params}) => {
-//   let workoutsSub = Meteor.subscribe('workouts');
-//   let userSub = Meteor.subscribe('currentUser');
-//   let workoutsArray;
-//   if(params.id) {
-//     workoutsArray = Workouts.find({_id: params.id}).fetch();
-//   } else {
-//     workoutsArray = Workouts.find({}, {
-//       // limit: showAll ? 50 : 1,
-//       sort: { lastUpdated: 1 }
-//     }).fetch()
-//   }
-//   return {
-//     currentUser: Meteor.user(),
-//     ready: workoutsSub.ready() && userSub.ready(),
-//     workouts: workoutsArray
-//   };
-// }, WorkoutForm);
-
-
-export default createContainer(() => {
+export default createContainer(({params}) => {
   let workoutsSub = Meteor.subscribe('workouts');
   let userSub = Meteor.subscribe('currentUser');
-  //   let workoutsArray;
-  //   if(params.id) {
-  //     workoutsArray = Workouts.find({_id: params.id}).fetch();
-  //   } else {
-  //     workoutsArray = Workouts.find({}, {
-  //       // limit: showAll ? 50 : 1,
-  //       sort: { lastUpdated: 1 }
-  //     }).fetch()
-  //   }
-
+    let workoutsArray;
+    if(params.workoutId) {
+      workoutsArray = Workouts.find({_id: params.workoutId}).fetch();
+    } else {
+      workoutsArray = Workouts.find({}, { sort: { createdAt: -1 } }).fetch();
+    }
   return {
     currentUser: Meteor.user(),
     ready: workoutsSub.ready() && userSub.ready(),
-    workouts: Workouts.find({}, { sort: { createdAt: -1 } }).fetch()
-    //     workouts: workoutsArray
+    workouts: workoutsArray
   };
 }, WorkoutForm);
