@@ -103,7 +103,7 @@ class WorkoutForm extends Component {
                 type="checkbox"
                 checked={this.state.timedWorkout}
                 onClick={this.toggleState.bind(this, 'timedWorkout')}
-              /> 
+              />
               <span>This is a timed workout</span>
             </label>
             <input
@@ -123,11 +123,17 @@ class WorkoutForm extends Component {
             />
             <button type="submit">Create Workout</button>
           </form> : ''
-       }
-
-       <div>
-         {this.renderWorkouts()}
-       </div>
+        }
+        <div>
+          <p>Filter Workouts</p>
+          <button>Name</button>
+          <button>Type</button>
+          <button>Date Added</button>
+          <button>Recent</button>
+        </div>
+        <div>
+          {this.renderWorkouts()}
+        </div>
 
       </div>
     )
