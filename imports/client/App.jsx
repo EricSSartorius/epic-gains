@@ -4,7 +4,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Workouts } from '../api/Workouts';
 import Workout from './Workout';
-import WorkoutForm from './pages/WorkoutForm';
 
 class App extends Component {
   render() {
