@@ -108,22 +108,21 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'workouts.insert'(noOfSets, timedWorkout, workoutDescription, workoutName, workoutTime, workoutType ) {
-
+  'workouts.insert'(workoutData) {
     // Make sure the user is logged in before inserting a workout
     if (! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
     Workouts.insert({
       createdAt: new Date(),
-      noOfSets,
+      noOfSets: workoutData.noOfSets,
       owner: this.userId,
-      timedWorkout,
+      timedWorkout: workoutData.timedWorkout,
       username: Meteor.users.findOne(this.userId).username,
-      workoutDescription,
-      workoutName,
-      workoutType,
-      workoutTime
+      workoutDescription: workoutData.workoutDescription,
+      workoutName: workoutData.workoutName,
+      workoutType: workoutData.workoutType,
+      workoutTime: workoutData.workoutTime
     });
   },
   'workouts.remove'(workoutId) {
@@ -157,22 +156,22 @@ Meteor.methods({
 
     Workouts.update(workoutId, { $set: { private: setToPrivate } });
   },
-  'workouts.update'(workoutId, noOfSets, timedWorkout, workoutDescription, workoutName, workoutType,  workoutTime) {
-
-    const workout = Workouts.findOne(workoutId);
-
-    // Make sure only the workout owner can make a workout private
-    if (workout.owner !== this.userId) {
-      throw new Meteor.Error('not-authorized');
-    }
-
-    Workouts.update(workoutId, { $set: {
-      noOfSets: noOfSets,
-      timedWorkout: timedWorkout,
-      workoutDescription: workoutDescription,
-      workoutName: workoutName,
-      workoutType: workoutType,
-      workoutTime: workoutTime
-     } });
-  },
+  // 'workouts.update'(workoutId, noOfSets, timedWorkout, workoutDescription, workoutName, workoutType,  workoutTime) {
+	//
+  //   const workout = Workouts.findOne(workoutId);
+	//
+  //   // Make sure only the workout owner can make a workout private
+  //   if (workout.owner !== this.userId) {
+  //     throw new Meteor.Error('not-authorized');
+  //   }
+	//
+  //   Workouts.update(workoutId, { $set: {
+  //     noOfSets: noOfSets,
+  //     timedWorkout: timedWorkout,
+  //     workoutDescription: workoutDescription,
+  //     workoutName: workoutName,
+  //     workoutType: workoutType,
+  //     workoutTime: workoutTime
+  //    } });
+  // },
 });

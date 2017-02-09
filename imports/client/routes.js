@@ -9,7 +9,7 @@ import { render } from 'react-dom';
 
 import MainLayout from './layouts/MainLayout';
 import App from './App';
-import WorkoutForm from './pages/WorkoutForm';
+import WorkoutPage from './pages/WorkoutPage';
 import ExerciseForm from './pages/ExerciseForm';
 import Timer from './pages/Timer';
 import Library from './pages/Library';
@@ -20,8 +20,8 @@ Meteor.startup(() => {
     <Router history={browserHistory}>
       <Route path="/" component={MainLayout}>
         <IndexRoute component={App} />
-        <Route path='/workout' component={WorkoutForm} >
-          <Route path='/workout/:workoutId' component={WorkoutForm} />
+        <Route path='/workout' component={WorkoutPage} >
+          <Route path='/workout/:workoutId' component={WorkoutPage} />
         </Route>
         <Route path='/exercise' component={ExerciseForm}>
           <Route path='/exercise/:exerciseId' component={ExerciseForm} />
