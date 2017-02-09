@@ -2,10 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import { autobind } from 'core-decorators';
 
 import { Workouts } from '/imports/api/Workouts';
 import Workout from '../Workout';
 
+@autobind
 class WorkoutForm extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +16,16 @@ class WorkoutForm extends Component {
       search: '',
       timedWorkout: false
     };
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   handleSubmit(event) {
@@ -60,7 +72,7 @@ class WorkoutForm extends Component {
       );
     });
   }
-  
+
   // showAll() {
   //   if(this.props.showAll) {
   //     Session.set('showAll', false);
@@ -69,11 +81,11 @@ class WorkoutForm extends Component {
   //   }
   // }
 
-  toggleState(id) {
-   let newState = Object.assign({}, this.state); // Getting the state object, not a reference to it as we don't want to modify state directly
-   newState[id] = !this.state[id];
-   this.setState(newState);
-  }
+  // toggleState(id) {
+  //  let newState = Object.assign({}, this.state); // Getting the state object, not a reference to it as we don't want to modify state directly
+  //  newState[id] = !this.state[id];
+  //  this.setState(newState);
+  // }
 
   updateSearch(event) {
     this.setState({search: event.target.value.substr(0,20)});
@@ -90,7 +102,7 @@ class WorkoutForm extends Component {
 
         { this.props.currentUser ?
           <div>
-            <form className="new-workout" onSubmit={this.handleSubmit.bind(this)} >
+            <form className="new-workout" onSubmit={this.handleSubmit} >
               <input
                 type="text"
                 ref="workoutNameInput"
@@ -98,17 +110,19 @@ class WorkoutForm extends Component {
               />
               <label>
                 <input
+                  name="circuitWorkout"
                   type="checkbox"
                   checked={this.state.circuitWorkout}
-                  onClick={this.toggleState.bind(this, 'circuitWorkout')}
+                  onClick={this.handleInputChange}
                 />
                 <span>This is a circuit workout</span>
               </label>
               <label>
                 <input
+                  name="timedWorkout"
                   type="checkbox"
                   checked={this.state.timedWorkout}
-                  onClick={this.toggleState.bind(this, 'timedWorkout')}
+                  onChange={this.handleInputChange}
                 />
                 <span>This is a timed workout</span>
               </label>
@@ -122,8 +136,7 @@ class WorkoutForm extends Component {
                 ref="workoutTimeInput"
                 placeholder="Workout time"
               />
-              <input
-                type="text"
+              <textarea
                 ref="workoutDescriptionInput"
                 placeholder="Workout description"
               />

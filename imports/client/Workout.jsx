@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 // import classnames from 'classnames';
-// import { autobind } from 'core-decorators';
+import { autobind } from 'core-decorators';
 import { Link } from 'react-router';
 
 // Workout component - represents a single workout
-// @autobind
+@autobind
 export default class Workout extends Component {
 
   deleteThisWorkout() {
@@ -15,7 +15,7 @@ export default class Workout extends Component {
   render() {
     return (
       <div className="workout">
-        <button className="delete" onClick={this.deleteThisWorkout.bind(this)}>
+        <button className="delete" onClick={this.deleteThisWorkout}>
           &times;
         </button>
 

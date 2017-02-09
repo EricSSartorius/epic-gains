@@ -10,6 +10,7 @@ Meteor.publish('currentUser', function() {
       'services.twitter': 1,
       'services.facebook': 1,
       'profile': 1,
+      // 'user_actions.fitness': 1 // FUTURE
     }
   });
 });
