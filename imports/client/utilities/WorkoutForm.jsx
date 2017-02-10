@@ -13,7 +13,7 @@ export default class WorkoutForm extends Component {
         <input
           type="text"
           name="workoutName"
-          value={this.props.value}
+          value={this.props.workoutName}
           onChange={this.props.handleInputChange}
           placeholder="Workout name"
         />
@@ -38,15 +38,34 @@ export default class WorkoutForm extends Component {
         <input
           type="number"
           name="noOfSets"
+          value={this.props.noOfSets}
           placeholder="Number of sets"
           onChange={this.props.handleInputChange}
         />
         <input
           type="number"
           name="workoutTime"
+          value={this.props.workoutTime}
           placeholder="Workout time"
           onChange={this.props.handleInputChange}
         />
+        <label>
+          Choose your focus
+          <select
+            name="workoutFocus"
+            value={this.props.workoutFocus}
+            onChange={this.props.handleInputChange}
+          >
+            <option value="Whole Body">Whole Body</option>
+            <option value="Upper Body">Upper Body</option>
+            <option value="Lower Body">Lower Body</option>
+            <option value="Abs">Abs</option>
+            <option value="Push">Push</option>
+            <option value="Pull">Pull</option>
+            <option value="Cardio">Cardio</option>
+            <option value="Stretching">Stretching</option>
+          </select>
+        </label>
         <textarea
           name="workoutDescription"
           placeholder="Workout description"

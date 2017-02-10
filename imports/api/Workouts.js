@@ -89,6 +89,10 @@ const WorkoutsSchema = new SimpleSchema({
 		type: Number,
 		optional: true
 	},
+	workoutFocus: {
+		type: String,
+		optional: true
+	},
   workoutType: String
 });
 
@@ -121,6 +125,7 @@ Meteor.methods({
       username: Meteor.users.findOne(this.userId).username,
       workoutDescription: workoutData.workoutDescription,
       workoutName: workoutData.workoutName,
+			workoutFocus: workoutData.workoutFocus,
       workoutType: workoutData.workoutType,
       workoutTime: workoutData.workoutTime
     });

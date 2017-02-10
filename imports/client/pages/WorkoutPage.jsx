@@ -19,6 +19,7 @@ class WorkoutPage extends Component {
       timedWorkout: false,
       noOfSets: '',
       workoutTime: '',
+      workoutFocus: 'Whole Body',
       workoutDescription: '',
       search: '',
     };
@@ -40,6 +41,7 @@ class WorkoutPage extends Component {
       workoutType: this.state.circuitWorkout ? 'Circuit' : 'Normal',
       timedWorkout: this.state.timedWorkout,
       noOfSets: this.state.noOfSets,
+      workoutFocus: this.state.workoutFocus,
       workoutTime: this.state.workoutTime,
       workoutDescription: this.state.workoutDescription,
     };
@@ -48,12 +50,12 @@ class WorkoutPage extends Component {
     Meteor.call('workouts.insert', workoutData, (err, res) => {
      if(!err) {
       // Clear form
-      // ** CURRENTLY ONLY CLEARS CHECKBOXES. NEEDS FIXED
       this.setState({
         workoutName: '',
         circuitWorkout: false,
         timedWorkout: false,
         noOfSets: '',
+        workoutFocus: 'Whole Body',
         workoutTime: '',
         workoutDescription: ''
       });
@@ -112,6 +114,7 @@ class WorkoutPage extends Component {
               timedWorkout={this.state.timedWorkout}
               noOfSets={this.state.noOfSets}
               workoutTime={this.state.workoutTime}
+              workoutFocus={this.state.workoutFocus}
               workoutDescription={this.state.workoutDescription}
             />
             <Searchbar

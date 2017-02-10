@@ -33,6 +33,9 @@ export default class Workout extends Component {
             Sets: {this.props.workout.noOfSets}
           </li>
           <li>
+            Focus: {this.props.workout.workoutFocus}
+          </li>
+          <li>
             Description: {this.props.workout.workoutDescription}
           </li>
         </ul>
