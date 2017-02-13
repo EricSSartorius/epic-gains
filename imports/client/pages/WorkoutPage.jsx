@@ -14,6 +14,7 @@ class WorkoutPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // showForm: false,
       workoutName: '',
       circuitWorkout: false,
       timedWorkout: false,
@@ -25,7 +26,7 @@ class WorkoutPage extends Component {
     };
   }
 
-  handleInputChange(event) {
+  handleChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -91,6 +92,10 @@ class WorkoutPage extends Component {
   //   }
   // }
 
+  // toggleForm() {
+  //   this.setState({showForm: !this.state.showForm});
+  // }
+
   updateSearch(event) {
     this.setState({search: event.target.value.substr(0,20)});
   }
@@ -106,23 +111,28 @@ class WorkoutPage extends Component {
 
         { this.props.currentUser ?
           <div>
-            <WorkoutForm
-              handleSubmit={this.handleSubmit}
-              handleInputChange={this.handleInputChange}
-              workoutName={this.state.workoutName}
-              circuitWorkout={this.state.circuitWorkout}
-              timedWorkout={this.state.timedWorkout}
-              noOfSets={this.state.noOfSets}
-              workoutTime={this.state.workoutTime}
-              workoutFocus={this.state.workoutFocus}
-              workoutDescription={this.state.workoutDescription}
-            />
+            {/* <button onClick={this.toggleForm}>{this.state.showForm ? 'Close Form':'Create New Workout'}</button> */}
+            {/* { this.state.showForm ? */}
+              <WorkoutForm
+                handleSubmit={this.handleSubmit}
+                handleChange={this.handleChange}
+                workoutName={this.state.workoutName}
+                circuitWorkout={this.state.circuitWorkout}
+                timedWorkout={this.state.timedWorkout}
+                noOfSets={this.state.noOfSets}
+                workoutTime={this.state.workoutTime}
+                workoutFocus={this.state.workoutFocus}
+                workoutDescription={this.state.workoutDescription}
+              />
+            {/* : null
+            } */}
             <Searchbar
               updateSearch={this.updateSearch}
               search={this.state.search}
             />
             {this.renderWorkouts()}
-          </div> : ''
+          </div>
+        : 'Please Log in'
         }
       </div>
     )

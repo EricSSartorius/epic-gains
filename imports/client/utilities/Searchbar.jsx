@@ -6,11 +6,12 @@ import { autobind } from 'core-decorators';
 export default class Searchbar extends Component {
   render() {
     return (
-      <div>
-        <p>Find Workout</p>
+      <div className="searchbar">
         <input type="text"
           value={this.props.search}
-          onChange={this.props.updateSearch}/>
+          onChange={this.props.updateSearch}
+          placeholder="Find Workout"
+        />
       </div>
     )
   }

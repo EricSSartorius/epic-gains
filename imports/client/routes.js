@@ -8,10 +8,11 @@ import {
 import { render } from 'react-dom';
 
 import MainLayout from './layouts/MainLayout';
+// import HomeLayout from './layouts/HomeLayout';
 import App from './App';
 import WorkoutPage from './pages/WorkoutPage';
-import ExerciseForm from './pages/ExerciseForm';
-import Timer from './pages/Timer';
+import ExercisePage from './pages/ExercisePage';
+import TimerPage from './pages/TimerPage';
 import Library from './pages/Library';
 import NotFound from './pages/NotFound';
 
@@ -23,11 +24,11 @@ Meteor.startup(() => {
         <Route path='/workout' component={WorkoutPage} >
           <Route path='/workout/:workoutId' component={WorkoutPage} />
         </Route>
-        <Route path='/exercise' component={ExerciseForm}>
-          <Route path='/exercise/:exerciseId' component={ExerciseForm} />
+        <Route path='/exercise' component={ExercisePage}>
+          <Route path='/exercise/:exerciseId' component={ExercisePage} />
         </Route>
-        <Route path='/timer' component={Timer}>
-          <Route path='/timer/:workoutId/:exerciseId' component={Timer} />
+        <Route path='/timer' component={TimerPage}>
+          <Route path='/timer/:workoutId/:exerciseId' component={TimerPage} />
         </Route>
         <Route path='/library' component={Library}>
           <Route path='/library/:workoutId/:exerciseId' component={Library} />

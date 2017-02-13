@@ -1,9 +1,6 @@
 @import 'nib'
 @import './styl/pages/_layouts.import'
 @import './styl/utils/_type.import'
-// @import './styl/_easings.import'
-// @import './styl/_vars.import'
-// @import './styl/_funcs.import'
 
 normalize-css();
 
@@ -35,14 +32,16 @@ header
   width 100%
   z-index: z.nav
   nav
-    float left
-    a
-      margin $margins
-  clearfix()
+    float right
+    ul
+      margin 0
+    li
+        display inline-block
+        margin 0 $margins
+  clearfix();
 
 footer
   background gray
-  fixed bottom left
   transition all 0.3s ease
   width 100%
 
@@ -59,7 +58,6 @@ button
 
 /* LOGIN */
 #login-buttons
-  float right
   .login-button
     @extend .button
   #login-dropdown-list
@@ -67,4 +65,8 @@ button
     border-radius 0
     box-shadow: $shadow
     margin $margins * 0
-    position fixed
+    left auto
+    right 0
+    top 15px
+    .login-close-text
+      float right

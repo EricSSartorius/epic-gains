@@ -3,51 +3,59 @@ import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import 'babel-polyfill';
 
+import { Exercises } from '/imports/api/Exercises';
+
 export const Workouts = new Mongo.Collection('workouts');
 
-const ExerciseSchema = new SimpleSchema({
-	createdAt: {
-		type: Date,
-		label: "Created At",
-		autoValue: function() {
-			return new Date()
-		}
-	},
-	exerciseDescription: {
-		type: String,
-		optional: true
-	},
-	exerciseName: {
-		type: String,
-		optional: true
-	},
-	exerciseTime: {
-		type: Number,
-		optional: true
-	},
-  exerciseType: {
-		type: String,
-		optional: true
-	},
-	intensity: {
-		type: Number,
-		optional: true
-	},
-	owner: {
-		type: String,
-		label: "",
-		autoValue: function() {
-			return this.userId
-		}
-	},
-  username: {
-    type: String,
-    label: "username",
-    autoValue: function() {
-      return Meteor.users.findOne(this.userId).username
-    }
-  }
-});
+// const ExerciseSchema = new SimpleSchema({
+// 	createdAt: {
+// 		type: Date,
+// 		label: "Created At",
+// 		autoValue: function() {
+// 			return new Date()
+// 		}
+// 	},
+// 	completed: Boolean,
+// 	exerciseDescription: {
+// 		type: String,
+// 		optional: true
+// 	},
+// 	exerciseName: {
+// 		type: String,
+// 		optional: true
+// 	},
+// 	exerciseTime: {
+// 		type: Number,
+// 		optional: true
+// 	},
+//   exerciseType: {
+// 		type: String,
+// 		optional: true
+// 	},
+// 	intensity: {
+// 		type: Number,
+// 		optional: true
+// 	},
+// 	noOfReps: {
+// 		type: number,
+// 		optional: true
+// 	},
+// 	owner: {
+// 		type: String,
+// 		label: "",
+// 		autoValue: function() {
+// 			return this.userId
+// 		}
+// 	},
+// 	timedExercise: false,
+//   username: {
+//     type: String,
+//     label: "username",
+//     autoValue: function() {
+//       return Meteor.users.findOne(this.userId).username
+//     }
+//   }
+// });
 
 const WorkoutsSchema = new SimpleSchema({
 	createdAt: {
@@ -57,10 +65,10 @@ const WorkoutsSchema = new SimpleSchema({
 			return new Date()
 		}
 	},
-  exercises: {
-		type: ExerciseSchema,
-		optional: true
-	},
+  // exercises: {
+	// 	type: ExerciseSchema,
+	// 	optional: true
+	// },
 	noOfSets: {
 		type: String,
 		optional: true
@@ -161,22 +169,23 @@ Meteor.methods({
 
     Workouts.update(workoutId, { $set: { private: setToPrivate } });
   },
-  // 'workouts.update'(workoutId, noOfSets, timedWorkout, workoutDescription, workoutName, workoutType,  workoutTime) {
-	//
-  //   const workout = Workouts.findOne(workoutId);
-	//
-  //   // Make sure only the workout owner can make a workout private
-  //   if (workout.owner !== this.userId) {
-  //     throw new Meteor.Error('not-authorized');
-  //   }
-	//
-  //   Workouts.update(workoutId, { $set: {
-  //     noOfSets: noOfSets,
-  //     timedWorkout: timedWorkout,
-  //     workoutDescription: workoutDescription,
-  //     workoutName: workoutName,
-  //     workoutType: workoutType,
-  //     workoutTime: workoutTime
-  //    } });
-  // },
+  'workouts.update'(workoutData) {
+
+    const workout = Workouts.findOne(workoutId);
+
+    // Make sure only the workout owner can make a workout private
+    if (workout.owner !== this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    Workouts.update(workoutId, { $set: {
+      noOfSets: workoutData.noOfSets,
+      timedWorkout: workoutData.timedWorkout,
+      workoutDescription: workoutData.workoutDescription,
+      workoutName: workoutData.workoutName,
+			workoutFocus: workoutData.workoutFocus,
+      workoutType: workoutData.workoutType,
+      workoutTime: workoutData.workoutTime
+     } });
+  },
 });

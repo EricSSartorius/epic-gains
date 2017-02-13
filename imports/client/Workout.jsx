@@ -24,6 +24,9 @@ export default class Workout extends Component {
         </span>
         <ul>
           <li>
+            Focus: {this.props.workout.workoutFocus}
+          </li>
+          <li>
             Type: {this.props.workout.workoutType}
           </li>
           <li>
@@ -31,9 +34,6 @@ export default class Workout extends Component {
           </li>
           <li>
             Sets: {this.props.workout.noOfSets}
-          </li>
-          <li>
-            Focus: {this.props.workout.workoutFocus}
           </li>
           <li>
             Description: {this.props.workout.workoutDescription}

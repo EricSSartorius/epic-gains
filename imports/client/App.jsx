@@ -7,10 +7,6 @@ import Workout from './Workout';
 
 class App extends Component {
   render() {
-    if (!this.props.ready) {
-      return <div> Loading </div>
-    }
-
     return (
       <div>
         <h1>Epic Gains</h1>
@@ -31,20 +27,4 @@ class App extends Component {
   }
 }
 
-export default createContainer(() => {
-  // let workoutSub = Meteor.subscribe('workouts');
-  let userSub = Meteor.subscribe('currentUser');
-  // let showAll = Session.get('showAll');
-
-  return {
-    // showAll,
-    ready: userSub.ready(),
-    // workouts: Workouts.find({}, {
-    //   sort: { createdAt: -1 }
-    // }).fetch(),
-    // incompleteCount: Workouts.find({
-    //   checked: { $ne: true }
-    // }).count(),
-    currentUser: Meteor.user()
-  };
-}, App);
+export default App;
