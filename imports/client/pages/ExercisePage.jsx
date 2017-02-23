@@ -13,7 +13,7 @@ class ExercisePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // showForm: false,
+      showForm: false,
       completed: false,
       exerciseDescription: '',
       exerciseName: '',
@@ -53,7 +53,6 @@ class ExercisePage extends Component {
      if(!err) {
       // Clear form
       this.setState({
-        // showForm: false,
         completed: false,
         exerciseDescription: '',
         exerciseName: '',
@@ -89,17 +88,9 @@ class ExercisePage extends Component {
     });
   }
 
-  // showAll() {
-  //   if(this.props.showAll) {
-  //     Session.set('showAll', false);
-  //   } else {
-  //     Session.set('showAll', true);
-  //   }
-  // }
-
-  // toggleForm() {
-  //   this.setState({showForm: !this.state.showForm});
-  // }
+  toggleForm() {
+    this.setState({showForm: !this.state.showForm});
+  }
 
   updateSearch(event) {
     this.setState({search: event.target.value.substr(0,20)});
@@ -116,11 +107,12 @@ class ExercisePage extends Component {
 
         { this.props.currentUser ?
           <div>
-            {/* <button onClick={this.toggleForm}>{this.state.showForm ? 'Close Form':'Create New Workout'}</button> */}
-            {/* { this.state.showForm ? */}
+            {this.state.showForm ?
               <ExerciseForm
+                toggleForm={this.toggleForm}
                 handleSubmit={this.handleSubmit}
                 handleChange={this.handleChange}
+                showForm={this.state.showForm}
                 completed={this.state.completed}
                 exerciseDescription={this.state.exerciseDescription}
                 exerciseName={this.state.exerciseName}
@@ -130,13 +122,16 @@ class ExercisePage extends Component {
                 noOfReps={this.state.noOfReps}
                 timedExercise={this.state.timedExercise}
               />
-            {/* : null
-            } */}
+            : null
+            }
             <Searchbar
               updateSearch={this.updateSearch}
               search={this.state.search}
             />
             {this.renderExercises()}
+            <div className="create-new" onClick={this.toggleForm}>
+              <p>Create New Exercise</p>
+            </div>
           </div>
         : 'Please Log in'
         }

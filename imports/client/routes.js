@@ -10,15 +10,14 @@ import { render } from 'react-dom';
 import Dashboard from './pages/Dashboard';
 import ExercisePage from './pages/ExercisePage';
 import HomeLayout from './layouts/HomeLayout';
-import Library from './pages/Library';
+import HomePage from './pages/HomePage';
+// import Library from './pages/Library';
 import MainLayout from './layouts/MainLayout';
 import NotFound from './pages/NotFound';
 import Settings from './pages/Settings';
-import Teams from './pages/Teams';
+// import Teams from './pages/Teams';
 import TimerPage from './pages/TimerPage';
 import WorkoutPage from './pages/WorkoutPage';
-
-
 
 Meteor.startup(() => {
   render(
@@ -34,9 +33,9 @@ Meteor.startup(() => {
         <Route path='/timer' component={TimerPage}>
           <Route path='/timer/:workoutId/:exerciseId' component={TimerPage} />
         </Route>
-        <Route path='/library' component={Library}>
+        {/* <Route path='/library' component={Library}>
           <Route path='/library/:workoutId/:exerciseId' component={Library} />
-        </Route>
+        </Route> */}
         <Route path='/settings' component={Settings}>
           <Route path='/settings/profile' component={Settings} />
           <Route path='/settings/account' component={Settings} />
