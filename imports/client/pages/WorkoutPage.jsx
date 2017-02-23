@@ -14,7 +14,7 @@ class WorkoutPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // showForm: false,
+      showForm: false,
       workoutName: '',
       circuitWorkout: false,
       timedWorkout: false,
@@ -37,6 +37,8 @@ class WorkoutPage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({showForm: false})
+
     const workoutData = {
       workoutName: this.state.workoutName,
       workoutType: this.state.circuitWorkout ? 'Circuit' : 'Normal',
@@ -84,17 +86,9 @@ class WorkoutPage extends Component {
     });
   }
 
-  // showAll() {
-  //   if(this.props.showAll) {
-  //     Session.set('showAll', false);
-  //   } else {
-  //     Session.set('showAll', true);
-  //   }
-  // }
-
-  // toggleForm() {
-  //   this.setState({showForm: !this.state.showForm});
-  // }
+  toggleForm() {
+    this.setState({showForm: !this.state.showForm});
+  }
 
   updateSearch(event) {
     this.setState({search: event.target.value.substr(0,20)});
@@ -111,11 +105,12 @@ class WorkoutPage extends Component {
 
         { this.props.currentUser ?
           <div>
-            {/* <button onClick={this.toggleForm}>{this.state.showForm ? 'Close Form':'Create New Workout'}</button> */}
-            {/* { this.state.showForm ? */}
+            { this.state.showForm ?
               <WorkoutForm
+                toggleForm={this.toggleForm}
                 handleSubmit={this.handleSubmit}
                 handleChange={this.handleChange}
+                showForm={this.state.showForm}
                 workoutName={this.state.workoutName}
                 circuitWorkout={this.state.circuitWorkout}
                 timedWorkout={this.state.timedWorkout}
@@ -124,13 +119,16 @@ class WorkoutPage extends Component {
                 workoutFocus={this.state.workoutFocus}
                 workoutDescription={this.state.workoutDescription}
               />
-            {/* : null
-            } */}
+            : null
+            }
             <Searchbar
               updateSearch={this.updateSearch}
               search={this.state.search}
             />
             {this.renderWorkouts()}
+            <div className="create-new" onClick={this.toggleForm}>
+              <p>Create New Workout</p>
+            </div>
           </div>
         : 'Please Log in'
         }
