@@ -7,20 +7,24 @@ import {
  } from 'react-router';
 import { render } from 'react-dom';
 
-import MainLayout from './layouts/MainLayout';
-// import HomeLayout from './layouts/HomeLayout';
-import App from './App';
-import WorkoutPage from './pages/WorkoutPage';
+import Dashboard from './pages/Dashboard';
 import ExercisePage from './pages/ExercisePage';
-import TimerPage from './pages/TimerPage';
+import HomeLayout from './layouts/HomeLayout';
 import Library from './pages/Library';
+import MainLayout from './layouts/MainLayout';
 import NotFound from './pages/NotFound';
+import Settings from './pages/Settings';
+import Teams from './pages/Teams';
+import TimerPage from './pages/TimerPage';
+import WorkoutPage from './pages/WorkoutPage';
+
+
 
 Meteor.startup(() => {
   render(
     <Router history={browserHistory}>
       <Route path="/" component={MainLayout}>
-        <IndexRoute component={App} />
+        <IndexRoute component={Dashboard} />
         <Route path='/workout' component={WorkoutPage} >
           <Route path='/workout/:workoutId' component={WorkoutPage} />
         </Route>
@@ -32,6 +36,10 @@ Meteor.startup(() => {
         </Route>
         <Route path='/library' component={Library}>
           <Route path='/library/:workoutId/:exerciseId' component={Library} />
+        </Route>
+        <Route path='/settings' component={Settings}>
+          <Route path='/settings/profile' component={Settings} />
+          <Route path='/settings/account' component={Settings} />
         </Route>
         <Route path='*' component={NotFound} />
       </Route>
