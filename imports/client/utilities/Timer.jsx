@@ -3,15 +3,13 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { autobind } from 'core-decorators';
 
-
-
-
 @autobind
 class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isStart: false,
+      isStarted: false,
+      isResting: false,
       elapsed: 0,
       diff: 0,
       view: 'time',
@@ -19,7 +17,8 @@ class Timer extends Component {
     };
   }
 
-  componentWillUnmount() { // clear timer
+  componentWillUnmount() {
+    // clear timer
     clearInterval(this.state.timer);
     this.setState({ timer: undefined });
   }
@@ -30,11 +29,23 @@ class Timer extends Component {
     this.setState({ elapsed });
   }
 
-  getTimeSpan(elapsed) {
+  getRest() {
+    if(this.state.isResting){
+      return (<h3>... Second Rest</h3>);
+    }
+  }
 
+  getTimeSpan(elapsed) {
+    console.log(elapsed);
     const m = String(Math.floor(elapsed / 1000 / 60));
     const s = String(Math.floor((elapsed % (1000 * 60)) / 1000) + 100).substring(1);
-    const ms = String(Math.floor((elapsed % (1000 * 60)) / 10) + 100).substring(1);
+    const ms = String(Math.floor((elapsed % (1000 * 60)) / 10) + 100).substring(0,2);
+    if (s === '45') {
+      this.state.isResting = true;
+    } else if (m !== '00' && s === '00') {
+      this.state.isResting = false;
+    }
+
     return `${m}m ${s}s ${ms}ms`;
   }
 
@@ -50,10 +61,10 @@ class Timer extends Component {
   }
 
   onClick() {
-    if (!this.state.isStart) {
-      const timer = setInterval(this.tick, 33);
+    if (!this.state.isStarted) {
+      const timer = setInterval(this.tick, 45);
       this.setState({
-        isStart: true,
+        isStarted: true,
         timer,
         start: new Date(),
       });
@@ -61,7 +72,7 @@ class Timer extends Component {
       clearInterval(this.state.timer);
       this.setState({
         timer: undefined,
-        isStart: false,
+        isStarted: false,
         diff: this.state.elapsed,
       });
     }
@@ -77,7 +88,7 @@ class Timer extends Component {
     clearInterval(this.state.timer);
     this.setState({
       timer: undefined,
-      isStart: false,
+      isStarted: false,
       elapsed: 0,
       diff: 0,
       sets: 0,
@@ -99,7 +110,13 @@ class Timer extends Component {
           </div>
         </section>
         <div className="types-wrapper">
-          {this.state.view === 'time' ? <h3>{this.getTimeSpan(this.state.elapsed)}</h3> : null }
+          {this.state.view === 'time' ?
+            <div>
+              <h3>Total Time elapsed:{this.getTimeSpan(this.state.elapsed)}</h3>
+              <h3>Time for this set: {this.getTimeSpan(this.state.elapsed)}</h3>
+              <div>{this.getRest()}</div>
+            </div>
+          : null }
           {this.state.view === 'sets' ?
             <div className="box-container">
               <div className="toggle-box">
@@ -112,7 +129,7 @@ class Timer extends Component {
               </div>
             </div> : null}
           <button className="btn btn-start" onClick={this.onClick}>
-            {this.state.isStart ? 'pause' : 'start'}
+            {this.state.isStarted ? 'pause' : 'start'}
           </button>
           <button className="btn btn-cancel" onClick={this.reset}>reset</button>
         </div>

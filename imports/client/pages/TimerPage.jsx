@@ -5,7 +5,6 @@ import { autobind } from 'core-decorators';
 
 import Timer from '../utilities/Timer';
 
-
 @autobind
 class TimerPage extends Component {
   render() {

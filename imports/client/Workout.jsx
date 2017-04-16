@@ -50,5 +50,5 @@ export default class Workout extends Component {
 Workout.propTypes = {
   // This component gets the workout to display through a React prop.
   // We can use propTypes to indicate it is required
-  workout: PropTypes.object.isRequired,
+  // workout: PropTypes.object.isRequired,
 };
