@@ -43,5 +43,5 @@ Meteor.startup(() => {
       </Route>
     </Router>,
     document.getElementById('render-target')
-  );
-});
+  )
+})

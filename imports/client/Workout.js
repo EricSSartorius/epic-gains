@@ -1,10 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Link } from 'react-router';
+import React, { Component } from 'react'
+import { Meteor } from 'meteor/meteor'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 
  class Workout extends Component {
   deleteThisWorkout = () => {
-    Meteor.call('workouts.remove', this.props.workout._id);
+    Meteor.call('workouts.remove', this.props.workout._id)
   }
 
   render() {
@@ -35,10 +36,10 @@ import { Link } from 'react-router';
           </li>
         </ul>
         <p>
-          <Link to ={'/workout/' + this.props.workout._id}>View Workout</Link>
+          <Link to ={'/workouts/' + this.props.workout._id}>View Workout</Link>
         </p>
       </div>
-    );
+    )
   }
 }
 

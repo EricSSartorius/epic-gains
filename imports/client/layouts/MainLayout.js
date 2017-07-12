@@ -3,7 +3,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import injectTapEventPlugin from "react-tap-event-plugin"
 import MainNav from './MainNav'
-import Footer from './Footer'
 
 injectTapEventPlugin() // required by material ui
 
@@ -15,7 +14,6 @@ const MainLayout = ({children}) =>
     <main className="main-layout">
       {children}
     </main>
-    <Footer />
   </div>
 
 export default MainLayout

@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Link } from 'react-router';
+import React, { Component } from 'react'
+import { Meteor } from 'meteor/meteor'
+import { Link } from 'react-router'
+import PropTypes from 'prop-types'
 
 class Exercise extends Component {
   deleteThisExercise() {
@@ -14,7 +15,7 @@ class Exercise extends Component {
           &times;
         </button>
 
-        <span className="">
+        <span>
           <h2>{this.props.exercise.exerciseName}</h2>
         </span>
         <ul>
@@ -35,10 +36,10 @@ class Exercise extends Component {
           </li>
         </ul>
         <p>
-          <Link to ={'/exercise/' + this.props.exercise._id}>View Exercise</Link>
+          <Link to ={'/exercises/' + this.props.exercise._id}>View Exercise</Link>
         </p>
       </div>
-    );
+    )
   }
 }
 

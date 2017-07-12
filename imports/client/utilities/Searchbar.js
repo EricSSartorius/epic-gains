@@ -1,8 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import { autobind } from 'core-decorators';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import ReactDOM from 'react-dom'
 
-@autobind
 export default class Searchbar extends Component {
   render() {
     return (
@@ -19,4 +18,4 @@ export default class Searchbar extends Component {
 
 Searchbar.propTypes = {
 
-};
+}

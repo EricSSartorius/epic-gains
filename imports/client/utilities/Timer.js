@@ -1,28 +1,25 @@
-function formattedSeconds(sec) {
-  var seconds = ('0' + sec % 60).slice(-2);
-  var minutes = Math.floor(sec / 60);
-
-  return minutes + ":" + seconds;
-}
-
-
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { autobind } from 'core-decorators';
-
-@autobind
+import React, { Component } from 'react'
+import { Meteor } from 'meteor/meteor'
+import { createContainer } from 'meteor/react-meteor-data'
+import PropTypes from 'prop-types'
 
 class Timer extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       restElapsed: 0,
       secondsElapsed: 0,
       laps: [],
       lastClearedIncrementer: 0,
       rest: 15
-    };
+    }
+  }
+
+  formattedSeconds = (sec) => {
+    var seconds = ('0' + sec % 60).slice(-2)
+    var minutes = Math.floor(sec / 60)
+
+    return minutes + ":" + seconds
   }
 
   handleLapClick() {
@@ -34,18 +31,18 @@ class Timer extends Component {
   }
 
   handleStartClick() {
-    var _this = this;
+    var _this = this
 
     this.incrementer = setInterval(function () {
       _this.setState({
         secondsElapsed: (_this.state.secondsElapsed + 1)
-      });
+      })
     }, 1000)
   }
 
   handleStopClick() {
-    clearInterval(this.incrementer);
-    this.setState({lastClearedIncrementer: this.incrementer});
+    clearInterval(this.incrementer)
+    this.setState({lastClearedIncrementer: this.incrementer})
   }
 
   render() {
@@ -53,8 +50,8 @@ class Timer extends Component {
 
 
       {(this.state.secondsElapsed < 45 || this.state.secondsElapsed >= 60)
-        ? <h1 className="stopwatch-timer">{formattedSeconds(this.state.secondsElapsed)}</h1>
-        : <h1 className="stopwatch-timer">{formattedSeconds(this.state.restElapsed)}</h1>
+        ? <h1 className="stopwatch-timer">{this.formattedSeconds(this.state.secondsElapsed)}</h1>
+        : <h1 className="stopwatch-timer">{this.formattedSeconds(this.state.restElapsed)}</h1>
       }
 
       {(this.state.secondsElapsed === 0 || this.incrementer === this.state.lastClearedIncrementer)
@@ -73,7 +70,7 @@ class Timer extends Component {
       }
 
       <ul className="stopwatch-laps">{this.state.laps.map(function (lap, i) {
-        return <li><strong>{i + 1}</strong>/ {formattedSeconds(lap)}</li>
+        return <li><strong>{i + 1}</strong>/ {this.formattedSeconds(lap)}</li>
       })}
       </ul>
     </div>
@@ -82,19 +79,19 @@ class Timer extends Component {
 
 Timer.propTypes = {
   currentUser: PropTypes.object,
-};
+}
 
 export default createContainer(({params}) => {
-  let userSub = Meteor.subscribe('currentUser');
+  let userSub = Meteor.subscribe('currentUser')
   return {
     currentUser: Meteor.user(),
     ready: userSub.ready(),
-  };
-}, Timer);
+  }
+}, Timer)
 
 
 var button = React.createClass({
   render: function () {
     return <button type="button" {...this.props} className={"btn " + this.props.className} />
   }
-});
+})
