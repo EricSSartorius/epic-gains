@@ -7,8 +7,8 @@ const MainNav = () =>
     {/* {Meteor.userId() ? ( */}
       <ul>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/workout'>Workouts</Link></li>
-        <li><Link to='/exercise'>Exercises</Link></li>
+        <li><Link to='/workouts'>Workouts</Link></li>
+        <li><Link to='/exercises'>Exercises</Link></li>
         <li><Link to='/timer'>Timer</Link></li>
         {/* <li><Link to='/library'>Library</Link></li> */}
         {/* <li><Link to='/teams'>Teams</Link></li> */}

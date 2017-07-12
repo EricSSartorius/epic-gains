@@ -1,14 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-// import classnames from 'classnames';
-import { autobind } from 'core-decorators';
 import { Link } from 'react-router';
 
-// Workout component - represents a single workout
-@autobind
-export default class Workout extends Component {
-
-  deleteThisWorkout() {
+ class Workout extends Component {
+  deleteThisWorkout = () => {
     Meteor.call('workouts.remove', this.props.workout._id);
   }
 
@@ -51,4 +46,6 @@ Workout.propTypes = {
   // This component gets the workout to display through a React prop.
   // We can use propTypes to indicate it is required
   // workout: PropTypes.object.isRequired,
-};
+}
+
+export default Workout

@@ -1,15 +1,12 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { autobind } from 'core-decorators';
-
-import { Workouts } from '/imports/api/Workouts';
+import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom'
+import { Meteor } from 'meteor/meteor'
+import { createContainer } from 'meteor/react-meteor-data'
+import { Workouts } from '/imports/api/Workouts'
 import Workout from '../Workout';
-import WorkoutForm from '../utilities/WorkoutForm';
-import Searchbar from '../utilities/Searchbar';
+import WorkoutForm from '../utilities/WorkoutForm'
+import Searchbar from '../utilities/Searchbar'
 
-@autobind
 class WorkoutPage extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +23,7 @@ class WorkoutPage extends Component {
     };
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -35,8 +32,8 @@ class WorkoutPage extends Component {
     });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleSubmit = (event) => {
+    event.preventDefault()
     this.setState({showForm: false})
 
     const workoutData = {
@@ -47,7 +44,7 @@ class WorkoutPage extends Component {
       workoutFocus: this.state.workoutFocus,
       workoutTime: this.state.workoutTime,
       workoutDescription: this.state.workoutDescription,
-    };
+    }
 
     // Send to backend
     Meteor.call('workouts.insert', workoutData, (err, res) => {
@@ -61,11 +58,11 @@ class WorkoutPage extends Component {
         workoutFocus: 'Whole Body',
         workoutTime: '',
         workoutDescription: ''
-      });
+      })
      } else {
        console.log(err);
      }
-    });
+    })
   }
 
   renderWorkouts() {
@@ -86,11 +83,11 @@ class WorkoutPage extends Component {
     });
   }
 
-  toggleForm() {
+  toggleForm = () => {
     this.setState({showForm: !this.state.showForm});
   }
 
-  updateSearch(event) {
+  updateSearch = (event) => {
     this.setState({search: event.target.value.substr(0,20)});
   }
 

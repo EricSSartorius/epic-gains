@@ -1,20 +1,18 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { autobind } from 'core-decorators';
+import React, { Component, PropTypes } from 'react'
+import { Meteor } from 'meteor/meteor'
+import { createContainer } from 'meteor/react-meteor-data'
+import { Exercises } from '/imports/api/Exercises'
+import Exercise from '../Exercise'
+import ExerciseForm from '../utilities/ExerciseForm'
+import Searchbar from '../utilities/Searchbar'
 
-import { Exercises } from '/imports/api/Exercises';
-import Exercise from '../Exercise';
-import ExerciseForm from '../utilities/ExerciseForm';
-import Searchbar from '../utilities/Searchbar';
-
-@autobind
 class ExercisePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showForm: false,
       completed: false,
+      exercise: null,
       exerciseDescription: '',
       exerciseName: '',
       exerciseTime: '',
@@ -26,7 +24,7 @@ class ExercisePage extends Component {
     };
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -35,7 +33,7 @@ class ExercisePage extends Component {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     const exerciseData = {
       completed: this.state.completed,
@@ -88,11 +86,11 @@ class ExercisePage extends Component {
     });
   }
 
-  toggleForm() {
+  toggleForm = () => {
     this.setState({showForm: !this.state.showForm});
   }
 
-  updateSearch(event) {
+  updateSearch = (event) => {
     this.setState({search: event.target.value.substr(0,20)});
   }
 
@@ -143,7 +141,7 @@ class ExercisePage extends Component {
 ExercisePage.propTypes = {
   exercises: PropTypes.array.isRequired,
   currentUser: PropTypes.object,
-};
+}
 
 export default createContainer(({params}) => {
   let exercisesSub = Meteor.subscribe('exercises');
@@ -159,4 +157,4 @@ export default createContainer(({params}) => {
     ready: exercisesSub.ready() && userSub.ready(),
     exercises: exercisesArray
   };
-}, ExercisePage);
+}, ExercisePage)

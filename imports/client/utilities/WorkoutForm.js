@@ -1,12 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
+import { Workouts } from '/imports/api/Workouts'
 
-import { autobind } from 'core-decorators';
-
-import { Workouts } from '/imports/api/Workouts';
-
-@autobind
-export default class WorkoutForm extends Component {
-
+class WorkoutForm extends Component {
   render() {
     return (
       <div className="popup">
@@ -82,5 +77,7 @@ export default class WorkoutForm extends Component {
 }
 
 WorkoutForm.propTypes = {
-  currentUser: PropTypes.object,
-};
+  currentUser: PropTypes.object
+}
+
+export default WorkoutForm
