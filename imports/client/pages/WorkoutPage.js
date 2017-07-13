@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import { Meteor } from 'meteor/meteor'
 import { createContainer } from 'meteor/react-meteor-data'
 import PropTypes from 'prop-types'
@@ -28,14 +27,12 @@ class WorkoutPage extends Component {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    this.setState({
-      [name]: value
-    })
+
+    this.setState({[name]: value})
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.setState({showForm: false})
 
     const workoutData = {
       workoutName: this.state.workoutName,
@@ -47,10 +44,10 @@ class WorkoutPage extends Component {
       workoutDescription: this.state.workoutDescription,
     }
 
-    // Send to backend
     Meteor.call('workouts.insert', workoutData, (err, res) => {
      if(!err) {
-      // Clear form
+      this.setState({showForm: false})
+
       this.setState({
         workoutName: '',
         circuitWorkout: false,
@@ -93,6 +90,7 @@ class WorkoutPage extends Component {
   }
 
   render() {
+    console.log(this.props.workouts)
     if (!this.props.ready) {
       return <div> Loading </div>
     }

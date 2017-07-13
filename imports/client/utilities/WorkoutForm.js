@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Workouts } from '/imports/api/Workouts'
 
 class WorkoutForm extends Component {
   render() {

@@ -8,19 +8,10 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized')
     }
 
-    Exercises.insert({
-      completed: exerciseData.completed,
-      createdAt: new Date(),
-      exerciseDescription: exerciseData.exerciseDescription,
-      exerciseName: exerciseData.exerciseName,
-      exerciseTime: exerciseData.exerciseTime,
-      exerciseType: exerciseData.exerciseType,
-      intensity: exerciseData.intensity,
-      noOfReps: exerciseData.noOfReps,
-      owner: this.userId,
-      timedExercise: exerciseData.timedExercise,
-      username: Meteor.users.findOne(this.userId).username,
-    })
+    exerciseData.owner = this.userId
+    exerciseData.username = Meteor.users.findOne(this.userId).username
+
+    Exercises.insert(exerciseData)
   },
   'exercises.remove'(exerciseId) {
     const exercise = Exercises.findOne(exerciseId)
@@ -56,34 +47,17 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized')
     }
 
-    Exercises.update(exerciseId, { $set: {
-      completed: exerciseData.completed,
-      exerciseDescription: exerciseData.exerciseDescription,
-      exerciseName: exerciseData.exerciseName,
-      exerciseTime: exerciseData.exerciseTime,
-      exerciseType: exerciseData.exerciseType,
-      intensity: exerciseData.intensity,
-      noOfReps: exerciseData.noOfReps,
-      timedExercise: exerciseData.timedExercise,
-     } })
+    Exercises.update(exerciseId, { $set: exerciseData })
   },
    'workouts.insert'(workoutData) {
     if (! this.userId) {
       throw new Meteor.Error('not-authorized')
     }
+    
+    workoutData.owner = this.userId
+    workoutData.username = Meteor.users.findOne(this.userId).username
 
-    Workouts.insert({
-      createdAt: new Date(),
-      noOfSets: workoutData.noOfSets,
-      owner: this.userId,
-      timedWorkout: workoutData.timedWorkout,
-      username: Meteor.users.findOne(this.userId).username,
-      workoutDescription: workoutData.workoutDescription,
-      workoutName: workoutData.workoutName,
-			workoutFocus: workoutData.workoutFocus,
-      workoutType: workoutData.workoutType,
-      workoutTime: workoutData.workoutTime
-    })
+    Workouts.insert(workoutData)
   },
   'workouts.remove'(workoutId) {
     const workout = Workouts.findOne(workoutId)
@@ -119,14 +93,6 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized')
     }
 
-    Workouts.update(workoutId, { $set: {
-      noOfSets: workoutData.noOfSets,
-      timedWorkout: workoutData.timedWorkout,
-      workoutDescription: workoutData.workoutDescription,
-      workoutName: workoutData.workoutName,
-			workoutFocus: workoutData.workoutFocus,
-      workoutType: workoutData.workoutType,
-      workoutTime: workoutData.workoutTime
-     } })
+    Workouts.update(workoutId, { $set: workoutData })
   }
 })

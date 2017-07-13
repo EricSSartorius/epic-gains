@@ -1,10 +1,5 @@
 import React from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import injectTapEventPlugin from "react-tap-event-plugin"
 import MainNav from './MainNav'
-
-injectTapEventPlugin() // required by material ui
 
 const MainLayout = ({children}) =>
   <div>

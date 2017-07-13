@@ -36,6 +36,8 @@ class ExercisePage extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
+
+
     const exerciseData = {
       completed: this.state.completed,
       exerciseDescription: this.state.exerciseDescription,
@@ -47,10 +49,10 @@ class ExercisePage extends Component {
       timedExercise: this.state.timedExercise
     }
 
-    // Send to backend
     Meteor.call('exercises.insert', exerciseData, (err, res) => {
      if(!err) {
-      // Clear form
+      this.setState({showForm: false})
+
       this.setState({
         completed: false,
         exerciseDescription: '',
@@ -96,6 +98,8 @@ class ExercisePage extends Component {
   }
 
   render() {
+    console.log(this.props.exercises)
+
     if (!this.props.ready) {
       return <div> Loading </div>
     }
@@ -148,7 +152,7 @@ export default createContainer(({params}) => {
   let exercisesSub = Meteor.subscribe('exercises')
   let userSub = Meteor.subscribe('currentUser')
     let exercisesArray
-    if(params.workoutId) {
+    if(params.exerciseId) {
       exercisesArray = Exercises.find({_id: params.exerciseId}).fetch()
     } else {
       exercisesArray = Exercises.find({}, { sort: { createdAt: -1 } }).fetch()
