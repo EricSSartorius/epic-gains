@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { Workouts } from '/imports/api/Workouts'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class WorkoutForm extends Component {
   render() {

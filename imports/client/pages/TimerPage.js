@@ -1,11 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { autobind } from 'core-decorators';
+import React, { Component } from 'react'
+import { Meteor } from 'meteor/meteor'
+import { createContainer } from 'meteor/react-meteor-data'
+import PropTypes from 'prop-types'
+import Timer from '../utilities/Timer'
 
-import Timer from '../utilities/Timer';
-
-@autobind
 class TimerPage extends Component {
   render() {
     return (
@@ -17,11 +15,10 @@ class TimerPage extends Component {
   }
 }
 
-
 export default createContainer(({params}) => {
-  let userSub = Meteor.subscribe('currentUser');
+  let userSub = Meteor.subscribe('currentUser')
   return {
     currentUser: Meteor.user(),
     ready: userSub.ready(),
   };
-}, TimerPage);
+}, TimerPage)

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import AccountsUIWrapper from '../utilities/AccountsUIWrapper';
+import React, { Component } from 'react'
+import { Link } from 'react-router'
+import AccountsUIWrapper from '../utilities/AccountsUIWrapper'
 
 const MainNav = () =>
   <nav className="main-nav">
@@ -24,4 +24,4 @@ const MainNav = () =>
     )} */}
   </nav>
 
-export default MainNav;
+export default MainNav

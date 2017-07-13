@@ -52,9 +52,9 @@ const WorkoutsSchema = new SimpleSchema({
 		optional: true
 	},
   workoutType: String
-});
+})
 
-Workouts.attachSchema(WorkoutsSchema);
+Workouts.attachSchema(WorkoutsSchema)
 
 if (Meteor.isServer) {
   // This code only runs on the server

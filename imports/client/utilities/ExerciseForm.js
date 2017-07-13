@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class ExerciseForm extends Component {
   render() {
@@ -14,20 +15,20 @@ class ExerciseForm extends Component {
             placeholder="Exercise name"
           />
           <label>
-            Choose your focus
+            Exercise Type
             <select
               name="exerciseType"
               value={this.props.exerciseType}
               onChange={this.props.handleChange}
             >
-              <option value="Whole Body">Hamstrings</option>
-              <option value="Upper Body">Chest</option>
-              <option value="Lower Body">Biceps</option>
-              <option value="Abs">Triceps</option>
-              <option value="Push">Abs</option>
-              <option value="Pull">Calves</option>
-              <option value="Cardio">Shoulders</option>
-              <option value="Stretching">Forearms</option>
+              <option value="Hamstrings">Hamstrings</option>
+              <option value="Chest">Chest</option>
+              <option value="Biceps">Biceps</option>
+              <option value="Triceps">Triceps</option>
+              <option value="Abs">Abs</option>
+              <option value="Calves">Calves</option>
+              <option value="Shoulders">Shoulders</option>
+              <option value="Forearms">Forearms</option>
             </select>
           </label>
           <label>

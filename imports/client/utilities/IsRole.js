@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 
 const IsRole = ({role, children}) => {
   if(Roles.userIsInRole(Meteor.userId(), role)) {
-    return children;
+    return children
   }
-  return null;
+  return null
 }
 
 IsRole.propTypes = {
@@ -18,4 +18,4 @@ IsRole.propTypes = {
   ]).isRequired
 }
 
-export default IsRole;
+export default IsRole
