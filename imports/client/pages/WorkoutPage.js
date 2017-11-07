@@ -8,13 +8,15 @@ import WorkoutForm from '../components/WorkoutForm'
 import Searchbar from '../components/Searchbar'
 import Timer from '../components/Timer'
 import CircuitForm from '../components/CircuitForm'
-import CircuitDisplay from '../components/CircuitDisplay'
 
 class WorkoutPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       showForm: false,
+      noOfSets: 1,
+      exerciseTime: 60,
+      restTime: 120,
       workoutName: '',
       workoutFocus: 'Whole Body',
       workoutDescription: '',
@@ -52,6 +54,16 @@ class WorkoutPage extends Component {
      }
     })
   }
+
+  // handleCircuitSubmit = () => {
+  //   event.preventDefault()
+
+  //   const workoutData = {
+  //     workoutName: this.state.workoutName,
+  //     workoutFocus: this.state.workoutFocus,
+  //     workoutDescription: this.state.workoutDescription,
+  //   }
+  // }
 
   renderWorkouts() {
     let filteredWorkouts = this.props.workouts.filter(
@@ -101,8 +113,11 @@ class WorkoutPage extends Component {
               />
             : null
             }
-            <CircuitDisplay />
-            <CircuitForm />
+            <CircuitForm
+              noOfSets={this.state.noOfSets}
+              exerciseTime={this.state.exerciseTime}
+              restTime={this.state.restTime}
+            />
             <Timer />
             <Searchbar
               updateSearch={this.updateSearch}

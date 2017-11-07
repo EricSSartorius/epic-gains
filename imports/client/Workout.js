@@ -13,21 +13,12 @@ import { Link } from 'react-router'
     return (
       <Link to={'/workouts/' + this.props.workout._id}>
         <div className="workout">
-            <button className="delete" onClick={this.deleteThisWorkout}>
-              &times;
-            </button>
-
-            <span className="">
-              <h2>{this.props.workout.workoutName}</h2>
-            </span>
-            <ul>
-              <li>
-                <p>Focus: {this.props.workout.workoutFocus}</p>
-              </li>
-              <li>
-                <p>Description: {this.props.workout.workoutDescription}</p>
-              </li>
-            </ul>
+          <button className="delete" onClick={this.deleteThisWorkout}>
+            &times;
+          </button>
+          <h2>{this.props.workout.workoutName}</h2>
+          <p>{this.props.workout.workoutFocus}</p>
+          <p>Description: {this.props.workout.workoutDescription}</p>
         </div>
       </Link>
     )
