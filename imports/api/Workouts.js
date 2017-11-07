@@ -3,7 +3,6 @@ import { Mongo } from 'meteor/mongo'
 import SimpleSchema from 'simpl-schema'
 import './methods.js'
 import 'babel-polyfill'
-import { Exercises } from '/imports/api/Exercises'
 
 export const Workouts = new Mongo.Collection('workouts')
 
@@ -15,14 +14,6 @@ const WorkoutsSchema = new SimpleSchema({
 			return new Date()
 		}
 	},
-  exercises: {
-		type: Exercises,
-		optional: true
-	},
-	noOfSets: {
-		type: String,
-		optional: true
-	},
 	owner: {
 		type: String,
 		label: "owner",
@@ -30,7 +21,6 @@ const WorkoutsSchema = new SimpleSchema({
 			return this.userId
 		}
 	},
-	timedWorkout: Boolean,
 	username: {
 		type: String,
 		label: "username",
@@ -43,15 +33,10 @@ const WorkoutsSchema = new SimpleSchema({
 		optional: true
 	},
   workoutName: String,
-  workoutTime:  {
-		type: Number,
-		optional: true
-	},
 	workoutFocus: {
 		type: String,
 		optional: true
 	},
-  workoutType: String
 })
 
 Workouts.attachSchema(WorkoutsSchema)

@@ -24,15 +24,6 @@ import { Link } from 'react-router'
                 Focus: {this.props.workout.workoutFocus}
               </li>
               <li>
-                Type: {this.props.workout.workoutType}
-              </li>
-              <li>
-                Time: {this.props.workout.workoutTime}
-              </li>
-              <li>
-                Sets: {this.props.workout.noOfSets}
-              </li>
-              <li>
                 Description: {this.props.workout.workoutDescription}
               </li>
             </ul>

@@ -13,10 +13,6 @@ class WorkoutPage extends Component {
     this.state = {
       showForm: false,
       workoutName: '',
-      circuitWorkout: false,
-      timedWorkout: false,
-      noOfSets: '',
-      workoutTime: '',
       workoutFocus: 'Whole Body',
       workoutDescription: '',
       search: '',
@@ -36,11 +32,7 @@ class WorkoutPage extends Component {
 
     const workoutData = {
       workoutName: this.state.workoutName,
-      workoutType: this.state.circuitWorkout ? 'Circuit' : 'Normal',
-      timedWorkout: this.state.timedWorkout,
-      noOfSets: this.state.noOfSets,
       workoutFocus: this.state.workoutFocus,
-      workoutTime: this.state.workoutTime,
       workoutDescription: this.state.workoutDescription,
     }
 
@@ -50,11 +42,7 @@ class WorkoutPage extends Component {
 
       this.setState({
         workoutName: '',
-        circuitWorkout: false,
-        timedWorkout: false,
-        noOfSets: '',
         workoutFocus: 'Whole Body',
-        workoutTime: '',
         workoutDescription: ''
       })
      } else {
@@ -108,10 +96,6 @@ class WorkoutPage extends Component {
                 handleChange={this.handleChange}
                 showForm={this.state.showForm}
                 workoutName={this.state.workoutName}
-                circuitWorkout={this.state.circuitWorkout}
-                timedWorkout={this.state.timedWorkout}
-                noOfSets={this.state.noOfSets}
-                workoutTime={this.state.workoutTime}
                 workoutFocus={this.state.workoutFocus}
                 workoutDescription={this.state.workoutDescription}
               />

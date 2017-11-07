@@ -1,55 +1,8 @@
-import { Exercises } from '/imports/api/Exercises'
 import { Workouts } from '/imports/api/Workouts'
 import { Meteor } from 'meteor/meteor'
 
 Meteor.methods({
-  'exercises.insert'(exerciseData) {
-    if (! this.userId) {
-      throw new Meteor.Error('not-authorized')
-    }
-
-    exerciseData.owner = this.userId
-    exerciseData.username = Meteor.users.findOne(this.userId).username
-
-    Exercises.insert(exerciseData)
-  },
-  'exercises.remove'(exerciseId) {
-    const exercise = Exercises.findOne(exerciseId)
-
-    if (exercise.private && exercise.owner !== this.userId) {
-      throw new Meteor.Error('not-authorized')
-    }
-
-    Exercises.remove(exerciseId)
-  },
-  'exercises.setChecked'(exerciseId, setChecked) {
-    const exercise = Exercises.findOne(exerciseId)
-
-    if (exercise.private && exercise.owner !== this.userId) {
-      throw new Meteor.Error('not-authorized')
-    }
-
-    Exercises.update(exerciseId, { $set: { checked: setChecked } })
-  },
-  'exercises.setPrivate'(exerciseId, setToPrivate) {
-    const exercise = Exercises.findOne(exerciseId)
-
-    if (exercise.owner !== this.userId) {
-      throw new Meteor.Error('not-authorized')
-    }
-
-    Exercises.update(exerciseId, { $set: { private: setToPrivate } })
-  },
-  'exercises.update'(exerciseData) {
-    const exercise = Exercises.findOne(exerciseId)
-
-    if (exercise.owner !== this.userId) {
-      throw new Meteor.Error('not-authorized')
-    }
-
-    Exercises.update(exerciseId, { $set: exerciseData })
-  },
-   'workouts.insert'(workoutData) {
+  'workouts.insert'(workoutData) {
     if (! this.userId) {
       throw new Meteor.Error('not-authorized')
     }
