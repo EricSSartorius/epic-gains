@@ -6,9 +6,8 @@
 /* MAINLAYOUT */
 .main-layout
   margin $margins * 6 auto
-  width 100%
-  @media (min-width $large)
-      width 90%
+  padding $margins
+  max-width 1080px
 
 /* HOME */
 
@@ -20,15 +19,13 @@
   .workout
     border 1px solid gray
     box-shadow $shadow
-    display inline-block
-    margin $margins
+    margin $margins 0
     padding $padding * 2
     p
       text-align center
       a
         color: textColor.linkInverse
-    .delete
-      float right
+    // .delete
 
 /* EXERCISES */
 

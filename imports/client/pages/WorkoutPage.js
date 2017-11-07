@@ -121,10 +121,8 @@ class WorkoutPage extends Component {
               updateSearch={this.updateSearch}
               search={this.state.search}
             />
+            <button className="create-new" onClick={this.toggleForm}>+ New Workout</button>
             {this.renderWorkouts()}
-            <div className="create-new" onClick={this.toggleForm}>
-              <p>Create New Workout</p>
-            </div>
           </div>
         : 'Please Log in'
         }

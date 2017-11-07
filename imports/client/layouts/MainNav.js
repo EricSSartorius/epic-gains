@@ -9,7 +9,7 @@ const MainNav = () =>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/workouts'>Workouts</Link></li>
         <li><Link to='/exercises'>Exercises</Link></li>
-        <li><Link to='/timer'>Timer</Link></li>
+        {/* <li><Link to='/timer'>Timer</Link></li> */}
         {/* <li><Link to='/library'>Library</Link></li> */}
         {/* <li><Link to='/teams'>Teams</Link></li> */}
         {/* <li><Link to='/settings'>Settings</Link></li> */}

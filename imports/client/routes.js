@@ -15,7 +15,7 @@ import MainLayout from './layouts/MainLayout'
 import NotFound from './pages/NotFound'
 import Settings from './pages/Settings'
 // import Teams from './pages/Teams'
-import TimerPage from './pages/TimerPage'
+// import TimerPage from './pages/TimerPage'
 import WorkoutPage from './pages/WorkoutPage'
 
 Meteor.startup(() => {
@@ -29,9 +29,9 @@ Meteor.startup(() => {
         <Route path='/exercises' component={ExercisePage}>
           <Route path='/exercises/:exerciseId' component={ExercisePage} />
         </Route>
-        <Route path='/timer' component={TimerPage}>
+        {/* <Route path='/timer' component={TimerPage}>
           <Route path='/timer/:workoutId/:exerciseId' component={TimerPage} />
-        </Route>
+        </Route> */}
         {/* <Route path='/library' component={Library}>
           <Route path='/library/:workoutId/:exerciseId' component={Library} />
         </Route> */}
