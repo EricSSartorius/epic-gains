@@ -47,8 +47,6 @@ class Timer extends Component {
 
   render() {
     return <div className="stopwatch">
-
-
       {(this.state.secondsElapsed < 45 || this.state.secondsElapsed >= 60)
         ? <h1 className="stopwatch-timer">{this.formattedSeconds(this.state.secondsElapsed)}</h1>
         : <h1 className="stopwatch-timer">{this.formattedSeconds(this.state.restElapsed)}</h1>
@@ -78,14 +76,14 @@ class Timer extends Component {
 }
 
 Timer.propTypes = {
-  currentUser: PropTypes.object,
+  currentUser: PropTypes.object
 }
 
 export default createContainer(({params}) => {
   let userSub = Meteor.subscribe('currentUser')
   return {
     currentUser: Meteor.user(),
-    ready: userSub.ready(),
+    ready: userSub.ready()
   }
 }, Timer)
 
