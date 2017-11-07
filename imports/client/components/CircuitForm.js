@@ -5,7 +5,7 @@ class CircuitForm extends Component {
   render() {
     return (
       <div className="circuit-form">
-        <label for="noOfSets">
+        <label>
           <span>Number of Sets</span>
           <input
             type="number"
@@ -14,7 +14,7 @@ class CircuitForm extends Component {
             onChange={this.props.handleCircuitChange}
           />
         </label>
-        <label for="exerciseTime">
+        <label>
           <span>Exercise Time</span>
           <input
             type="number"
@@ -23,7 +23,7 @@ class CircuitForm extends Component {
             onChange={this.props.handleCircuitChange}
           />
         </label>
-        <label for="restTime">
+        <label>
           <span>Rest Time</span>
           <input
             type="number"
