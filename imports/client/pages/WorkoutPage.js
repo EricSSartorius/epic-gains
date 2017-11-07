@@ -4,8 +4,11 @@ import { createContainer } from 'meteor/react-meteor-data'
 import PropTypes from 'prop-types'
 import { Workouts } from '/imports/api/Workouts'
 import Workout from '../Workout'
-import WorkoutForm from '../utilities/WorkoutForm'
-import Searchbar from '../utilities/Searchbar'
+import WorkoutForm from '../components/WorkoutForm'
+import Searchbar from '../components/Searchbar'
+import Timer from '../components/Timer'
+import CircuitForm from '../components/CircuitForm'
+import CircuitDisplay from '../components/CircuitDisplay'
 
 class WorkoutPage extends Component {
   constructor(props) {
@@ -84,7 +87,6 @@ class WorkoutPage extends Component {
     return (
       <div className ="workout-layout">
         <h1>Workouts</h1>
-
         { this.props.currentUser ?
           <div>
             { this.state.showForm ?
@@ -99,6 +101,9 @@ class WorkoutPage extends Component {
               />
             : null
             }
+            <CircuitDisplay />
+            <CircuitForm />
+            <Timer />
             <Searchbar
               updateSearch={this.updateSearch}
               search={this.state.search}
