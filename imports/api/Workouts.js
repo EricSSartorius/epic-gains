@@ -42,8 +42,6 @@ const WorkoutsSchema = new SimpleSchema({
 Workouts.attachSchema(WorkoutsSchema)
 
 if (Meteor.isServer) {
-  // This code only runs on the server
-  // Only publish workouts that are public or belong to the current user
   Meteor.publish('workouts', function workoutsPublication() {
     return Workouts.find({
       $or: [

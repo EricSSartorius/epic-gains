@@ -31,38 +31,6 @@ class WorkoutForm extends Component {
               <option value="Stretching">Stretching</option>
             </select>
           </label>
-          <label>
-            <input
-              type="checkbox"
-              name="circuitWorkout"
-              checked={this.props.circuitWorkout}
-              onClick={this.props.handleChange}
-            />
-            <span>This is a circuit workout</span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="timedWorkout"
-              checked={this.props.timedWorkout}
-              onClick={this.props.handleChange}
-            />
-            <span>This is a timed workout</span>
-          </label>
-          <input
-            type="number"
-            name="noOfSets"
-            value={this.props.noOfSets}
-            placeholder="Number of sets"
-            onChange={this.props.handleChange}
-          />
-          <input
-            type="number"
-            name="workoutTime"
-            value={this.props.workoutTime}
-            placeholder="Workout time"
-            onChange={this.props.handleChange}
-          />
           <textarea
             name="workoutDescription"
             value={this.props.workoutDescription}
@@ -77,7 +45,13 @@ class WorkoutForm extends Component {
 }
 
 WorkoutForm.propTypes = {
-  currentUser: PropTypes.object
+  toggleForm: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  handleChange: PropTypes.func,
+  showForm: PropTypes.bool,
+  workoutName: PropTypes.string,
+  workoutFocus: PropTypes.string,
+  workoutDescription: PropTypes.string
 }
 
 export default WorkoutForm

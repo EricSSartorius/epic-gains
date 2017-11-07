@@ -3,13 +3,10 @@ import { Meteor } from 'meteor/meteor'
 
 Meteor.methods({
   'workouts.insert'(workoutData) {
-    if (! this.userId) {
+    console.log("INSERT",workoutData)
+    if (!this.userId) {
       throw new Meteor.Error('not-authorized')
     }
-    
-    workoutData.owner = this.userId
-    workoutData.username = Meteor.users.findOne(this.userId).username
-
     Workouts.insert(workoutData)
   },
   'workouts.remove'(workoutId) {
@@ -18,7 +15,6 @@ Meteor.methods({
     if (workout.private && workout.owner !== this.userId) {
       throw new Meteor.Error('not-authorized')
     }
-
     Workouts.remove(workoutId)
   },
   'workouts.setChecked'(workoutId, setChecked) {
@@ -27,7 +23,6 @@ Meteor.methods({
     if (workout.private && workout.owner !== this.userId) {
       throw new Meteor.Error('not-authorized')
     }
-
     Workouts.update(workoutId, { $set: { checked: setChecked } })
   },
   'workouts.setPrivate'(workoutId, setToPrivate) {
@@ -36,7 +31,6 @@ Meteor.methods({
     if (workout.owner !== this.userId) {
       throw new Meteor.Error('not-authorized')
     }
-
     Workouts.update(workoutId, { $set: { private: setToPrivate } })
   },
   'workouts.update'(workoutData) {
@@ -45,7 +39,6 @@ Meteor.methods({
     if (workout.owner !== this.userId) {
       throw new Meteor.Error('not-authorized')
     }
-
     Workouts.update(workoutId, { $set: workoutData })
   }
 })

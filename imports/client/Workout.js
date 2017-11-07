@@ -9,6 +9,7 @@ import { Link } from 'react-router'
   }
 
   render() {
+    console.log(this.props.workout)
     return (
       <Link to={'/workouts/' + this.props.workout._id}>
         <div className="workout">
@@ -21,10 +22,10 @@ import { Link } from 'react-router'
             </span>
             <ul>
               <li>
-                Focus: {this.props.workout.workoutFocus}
+                <p>Focus: {this.props.workout.workoutFocus}</p>
               </li>
               <li>
-                Description: {this.props.workout.workoutDescription}
+                <p>Description: {this.props.workout.workoutDescription}</p>
               </li>
             </ul>
         </div>
@@ -34,7 +35,7 @@ import { Link } from 'react-router'
 }
 
 Workout.propTypes = {
-  // workout: PropTypes.object.isRequired,
+  workout: PropTypes.object
 }
 
 export default Workout
