@@ -1,7 +1,8 @@
+/* eslint jsx-a11y/anchor-is-valid: 0 */
 import React, { Component } from 'react'
 import { Meteor } from 'meteor/meteor'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
  class Workout extends Component {
   deleteThisWorkout = () => {
@@ -18,7 +19,7 @@ import { Link } from 'react-router'
       )
     } else {
       return (
-        <Link to={'/workouts/' + this.props.workout._id}>
+        <Link to={`/workouts/${this.props.workout._id}`}>
           <div className="workout">
             <button className="delete" onClick={this.deleteThisWorkout}>
               &times;

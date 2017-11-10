@@ -1,32 +1,33 @@
-import React from 'react'
+import React from 'react';
 import {
-  Router,
+  BrowserRouter as Router,
   Route,
-  IndexRoute,
-  browserHistory
- } from 'react-router'
-import { render } from 'react-dom'
+  Switch,
+} from 'react-router-dom';
+import { render } from 'react-dom';
 
-import MainLayout from './layouts/MainLayout'
-import NotFound from './pages/NotFound'
-import Settings from './pages/Settings'
-import WorkoutPage from './pages/WorkoutPage'
+import MainNav from './layouts/MainNav';
+import NotFound from './pages/NotFound';
+import Settings from './pages/Settings';
+import WorkoutPage from './pages/WorkoutPage';
 
 Meteor.startup(() => {
   render(
-    <Router history={browserHistory}>
-      <Route path="/workouts" component={MainLayout}>
-        <IndexRoute component={WorkoutPage} />
-        <Route path='/workouts' component={WorkoutPage} >
-          <Route path='/workouts/:workoutId' component={WorkoutPage} />
-        </Route>
-        <Route path='/settings' component={Settings}>
-          <Route path='/settings/profile' component={Settings} />
-          <Route path='/settings/account' component={Settings} />
-        </Route>
-        <Route path='*' component={NotFound} />
-      </Route>
+    <Router>
+      <div>
+        <header>
+          <MainNav />
+        </header>
+        <main className="main-layout">
+          <Switch>
+            <Route exact path="/" component={WorkoutPage} />
+            <Route path="/workouts/:workoutId" component={WorkoutPage} />
+            <Route path="/settings" component={Settings} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </main>
+      </div>
     </Router>,
-    document.getElementById('render-target')
-  )
-})
+    document.getElementById('render-target'),
+  );
+});

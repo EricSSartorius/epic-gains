@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Meteor } from 'meteor/meteor'
-import { createContainer } from 'meteor/react-meteor-data'
+import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types'
 import { Workouts } from '/imports/api/Workouts'
 import Workout from '../Workout'
@@ -138,18 +138,18 @@ WorkoutPage.propTypes = {
   currentUser: PropTypes.object,
 }
 
-export default createContainer(({params}) => {
+export default withTracker(props => {
   let workoutsSub = Meteor.subscribe('workouts')
   let userSub = Meteor.subscribe('currentUser')
-    let workoutsArray
-    if(params.workoutId) {
-      workoutsArray = Workouts.find({_id: params.workoutId}).fetch()
-    } else {
-      workoutsArray = Workouts.find({}, { sort: { createdAt: -1 } }).fetch()
-    }
+  let workoutsArray
+  if (props.match.params.workoutId) {
+    workoutsArray = Workouts.find({ _id: props.match.params.workoutId }).fetch()
+  } else {
+    workoutsArray = Workouts.find({}, { sort: { createdAt: -1 } }).fetch()
+  }
   return {
     currentUser: Meteor.user(),
     ready: workoutsSub.ready() && userSub.ready(),
     workouts: workoutsArray
   }
-}, WorkoutPage)
+})(WorkoutPage);

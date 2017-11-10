@@ -1,15 +1,18 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router'
-import AccountsUIWrapper from '../utilities/AccountsUIWrapper'
+/* eslint jsx-a11y/anchor-is-valid: 0 */
+import React from 'react';
+import { Link } from 'react-router-dom';
+import AccountsUIWrapper from '../utilities/AccountsUIWrapper';
 
 const MainNav = () =>
-  <nav className="main-nav">
-    {/* {Meteor.userId() ? ( */}
+  (
+    <nav className="main-nav">
+      {/* {Meteor.userId() ? ( */}
       <ul>
-        <li><Link to='/workouts'>Workouts</Link></li>
-        <li><Link to='/settings'>Settings</Link></li>
+        <li><Link to="/">Workouts</Link></li>
+        <li><Link to="/settings">Settings</Link></li>
         <li><AccountsUIWrapper /></li>
       </ul>
-  </nav>
+    </nav>
+  );
 
-export default MainNav
+export default MainNav;

@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class CircuitForm extends Component {
   render() {
     return (
       <div className="circuit-form">
-        <label>
+        {/* <label>
           <span>Number of Sets</span>
           <input
             type="number"
@@ -31,9 +31,9 @@ class CircuitForm extends Component {
             value={this.props.restTime}
             onChange={this.props.handleCircuitChange}
           />
-        </label>
+        </label> */}
       </div>
-    )
+    );
   }
 }
 
@@ -45,6 +45,6 @@ CircuitForm.propTypes = {
   noOfSets: PropTypes.number,
   exerciseTime: PropTypes.number,
   restTime: PropTypes.number,
-}
+};
 
-export default CircuitForm
+export default CircuitForm;
