@@ -7,16 +7,16 @@ import Workout from '../Workout'
 import WorkoutForm from '../components/WorkoutForm'
 import Searchbar from '../components/Searchbar'
 import Timer from '../components/Timer'
-// import CircuitForm from '../components/CircuitForm'
+import CircuitForm from '../components/CircuitForm'
 
 class WorkoutPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       showForm: false,
-      // noOfSets: 1,
-      // exerciseTime: 60,
-      // restTime: 120,
+      noOfSets: 1,
+      exerciseTime: 60,
+      restTime: 120,
       workoutName: '',
       workoutFocus: 'Whole Body',
       workoutDescription: '',
@@ -109,11 +109,11 @@ class WorkoutPage extends Component {
               />
             : null
             }
-            {/* <CircuitForm
+            <CircuitForm
               noOfSets={this.state.noOfSets}
               exerciseTime={this.state.exerciseTime}
               restTime={this.state.restTime}
-            /> */}
+            />
             <Timer />
             <Searchbar
               updateSearch={this.updateSearch}
@@ -121,6 +121,7 @@ class WorkoutPage extends Component {
             />
             <button onClick={this.toggleForm}>+ New Workout</button>
             {this.renderWorkouts()}
+            <Workout rest={true} />
           </div>
         ) : (
           <div>

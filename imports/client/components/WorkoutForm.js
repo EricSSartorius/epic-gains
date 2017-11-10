@@ -24,10 +24,7 @@ class WorkoutForm extends Component {
               <option value="Whole Body">Whole Body</option>
               <option value="Upper Body">Upper Body</option>
               <option value="Lower Body">Lower Body</option>
-              <option value="Abs">Abs</option>
-              <option value="Push">Push</option>
-              <option value="Pull">Pull</option>
-              <option value="Cardio">Cardio</option>
+              <option value="Core">Core</option>
               <option value="Stretching">Stretching</option>
             </select>
           </label>

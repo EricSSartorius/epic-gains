@@ -9,23 +9,32 @@ import { Link } from 'react-router'
   }
 
   render() {
-    console.log(this.props.workout)
-    return (
-      <Link to={'/workouts/' + this.props.workout._id}>
-        <div className="workout">
-          <button className="delete" onClick={this.deleteThisWorkout}>
-            &times;
-          </button>
-          <h2>{this.props.workout.workoutName}</h2>
-          <p>{this.props.workout.workoutFocus}</p>
-          <p>Description: {this.props.workout.workoutDescription}</p>
+    if (this.props.rest) {
+      return (
+        <div className="rest">
+          <h2>Rest</h2>
+          <p>Description: Great job, grab some water!</p>
         </div>
-      </Link>
-    )
+      )
+    } else {
+      return (
+        <Link to={'/workouts/' + this.props.workout._id}>
+          <div className="workout">
+            <button className="delete" onClick={this.deleteThisWorkout}>
+              &times;
+            </button>
+            <h2>{this.props.workout.workoutName}</h2>
+            <p>{this.props.workout.workoutFocus}</p>
+            <p>Description: {this.props.workout.workoutDescription}</p>
+          </div>
+        </Link>
+      )
+    }
   }
 }
 
 Workout.propTypes = {
+  rest: PropTypes.bool,
   workout: PropTypes.object
 }
 
