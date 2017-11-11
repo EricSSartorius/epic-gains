@@ -1,44 +1,44 @@
-import { Workouts } from '/imports/api/Workouts'
-import { Meteor } from 'meteor/meteor'
+import { Workouts } from '/imports/api/Workouts';
+import { Meteor } from 'meteor/meteor';
 
 Meteor.methods({
-  'workouts.insert'(workoutData) {
-    console.log("INSERT",workoutData)
+  'workouts.insert': function(workoutData) {
+    console.log('INSERT', workoutData);
     if (!this.userId) {
-      throw new Meteor.Error('not-authorized')
+      throw new Meteor.Error('not-authorized');
     }
-    Workouts.insert(workoutData)
+    Workouts.insert(workoutData);
   },
-  'workouts.remove'(workoutId) {
-    const workout = Workouts.findOne(workoutId)
+  'workouts.remove': function(workoutId) {
+    const workout = Workouts.findOne(workoutId);
 
     if (workout.private && workout.owner !== this.userId) {
-      throw new Meteor.Error('not-authorized')
+      throw new Meteor.Error('not-authorized');
     }
-    Workouts.remove(workoutId)
+    Workouts.remove(workoutId);
   },
-  'workouts.setChecked'(workoutId, setChecked) {
-    const workout = Workouts.findOne(workoutId)
+  'workouts.setChecked': function(workoutId, setChecked) {
+    const workout = Workouts.findOne(workoutId);
 
     if (workout.private && workout.owner !== this.userId) {
-      throw new Meteor.Error('not-authorized')
+      throw new Meteor.Error('not-authorized');
     }
-    Workouts.update(workoutId, { $set: { checked: setChecked } })
+    Workouts.update(workoutId, { $set: { checked: setChecked } });
   },
-  'workouts.setPrivate'(workoutId, setToPrivate) {
-    const workout = Workouts.findOne(workoutId)
+  'workouts.setPrivate': function(workoutId, setToPrivate) {
+    const workout = Workouts.findOne(workoutId);
 
     if (workout.owner !== this.userId) {
-      throw new Meteor.Error('not-authorized')
+      throw new Meteor.Error('not-authorized');
     }
-    Workouts.update(workoutId, { $set: { private: setToPrivate } })
+    Workouts.update(workoutId, { $set: { private: setToPrivate } });
   },
-  'workouts.update'(workoutData) {
-    const workout = Workouts.findOne(workoutId)
+  'workouts.update': function(workoutData) {
+    const workout = Workouts.findOne(workoutId);
 
     if (workout.owner !== this.userId) {
-      throw new Meteor.Error('not-authorized')
+      throw new Meteor.Error('not-authorized');
     }
-    Workouts.update(workoutId, { $set: workoutData })
-  }
-})
+    Workouts.update(workoutId, { $set: workoutData });
+  },
+});

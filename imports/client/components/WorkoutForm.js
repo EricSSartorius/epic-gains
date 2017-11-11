@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
-class WorkoutForm extends Component {
+class WorkoutForm extends PureComponent {
   render() {
     return (
       <div className="popup">
         <button className="delete" onClick={this.props.toggleForm}>&times;</button>
-        <form className ="workout-form" onSubmit={this.props.handleSubmit} >
+        <form className="workout-form" onSubmit={this.props.handleSubmit} >
           <input
             type="text"
             name="workoutName"
@@ -14,7 +14,7 @@ class WorkoutForm extends Component {
             onChange={this.props.handleChange}
             placeholder="Workout name"
           />
-          <label>
+          <label htmlFor="workoutFocus">
             Choose your focus
             <select
               name="workoutFocus"
@@ -37,7 +37,7 @@ class WorkoutForm extends Component {
           <button type="submit">Create Workout</button>
         </form>
       </div>
-    )
+    );
   }
 }
 
@@ -48,7 +48,7 @@ WorkoutForm.propTypes = {
   showForm: PropTypes.bool,
   workoutName: PropTypes.string,
   workoutFocus: PropTypes.string,
-  workoutDescription: PropTypes.string
-}
+  workoutDescription: PropTypes.string,
+};
 
-export default WorkoutForm
+export default WorkoutForm;

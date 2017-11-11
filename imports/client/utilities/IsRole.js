@@ -1,21 +1,21 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
 
-const IsRole = ({role, children}) => {
-  if(Roles.userIsInRole(Meteor.userId(), role)) {
-    return children
+const IsRole = ({ role, children }) => {
+  if (Roles.userIsInRole(Meteor.userId(), role)) {
+    return children;
   }
-  return null
-}
+  return null;
+};
 
 IsRole.propTypes = {
   role: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.array
+    PropTypes.array,
   ]).isRequired,
   children: PropTypes.oneOfType([
     PropTypes.object,
-    PropTypes.array
-  ]).isRequired
-}
+    PropTypes.array,
+  ]).isRequired,
+};
 
-export default IsRole
+export default IsRole;
