@@ -10,8 +10,19 @@ class Workout extends Component {
     Meteor.call('workouts.remove', this.props.workout._id);
   }
 
+  editThisWorkout = () => {
+    console.log('Edit');
+  }
+
   render() {
-    if (this.props.rest) {
+    const {
+      rest,
+      workout,
+      handleChange,
+      handleSubmit,
+    } = this.props;
+
+    if (rest) {
       return (
         <div className="rest">
           <h2>Rest</h2>
@@ -20,16 +31,38 @@ class Workout extends Component {
       );
     }
     return (
-      <Link to={`/workouts/${this.props.workout._id}`}>
-        <div className="workout">
-          <button className="delete" onClick={this.deleteThisWorkout}>
-            &times;
-          </button>
+      <div className="workout">
+        <button className="delete" onClick={this.deleteThisWorkout}>
+          &times;
+        </button>
+        <button onClick={this.editThisWorkout}>Edit</button>
+        <Link to={`/workouts/${workout._id}`}>
           <h2>{this.props.workout.workoutName}</h2>
-          <p>{this.props.workout.workoutFocus}</p>
-          <p>Description: {this.props.workout.workoutDescription}</p>
-        </div>
-      </Link>
+        </Link>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="workoutFocus">
+            Focus
+              <select
+                name="workoutFocus"
+                value={workout.workoutFocus}
+                onChange={this.handleChange}
+              >
+                <option value="Whole Body">Whole Body</option>
+                <option value="Upper Body">Upper Body</option>
+                <option value="Lower Body">Lower Body</option>
+                <option value="Core">Core</option>
+                <option value="Stretching">Stretching</option>
+              </select>
+          </label>
+          <textarea
+            name="workoutDescription"
+            value={workout.workoutDescription}
+            placeholder="Workout description"
+            onChange={handleChange}
+          />
+          <button type="submit">Update</button>
+        </form>
+      </div>
     );
   }
 }
@@ -37,6 +70,8 @@ class Workout extends Component {
 Workout.propTypes = {
   rest: PropTypes.bool,
   workout: PropTypes.object,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
 };
 
 export default Workout;

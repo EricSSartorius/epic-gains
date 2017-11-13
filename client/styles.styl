@@ -14,13 +14,10 @@ html
   box-sizing: inherit
 
 body
-  height 100%
+  height 100vh
   padding-top: $headHeight
   > div, > div > div
-      height 100%
-
-// .page-wrapper
-//   min-height: 100%
+      height 100vh
 
 header
   background $blue
@@ -68,18 +65,13 @@ button
     left auto
     right 0
     top 15px
-    .login-close-text
-      float right
 
-.popup
-  background-color $gray
-  box-shadow $shadow
-  left 50%
-  position fixed
-  top 50%
-  transform translateY(-50%) translate(-50%)
-  width 80%
-  z-index: z.modal
-  .delete
-    float right
-    margin $margins
+// .popup
+//   background-color $gray
+//   box-shadow $shadow
+//   left 50%
+//   position fixed
+//   top 50%
+//   transform translateY(-50%) translate(-50%)
+//   width 80%
+//   z-index: z.modal

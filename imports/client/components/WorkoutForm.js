@@ -2,24 +2,45 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 class WorkoutForm extends PureComponent {
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    workoutName: PropTypes.string,
+    workoutFocus: PropTypes.string,
+    workoutDescription: PropTypes.string,
+  }
+
+  static defaultProps = {
+    workoutName: '',
+    workoutFocus: 'Whole Body',
+    workoutDescription: '',
+  }
+
   render() {
+    const {
+      handleSubmit,
+      handleChange,
+      workoutName,
+      workoutFocus,
+      workoutDescription,
+    } = this.props;
+
     return (
-      <div className="popup">
-        <button className="delete" onClick={this.props.toggleForm}>&times;</button>
-        <form className="workout-form" onSubmit={this.props.handleSubmit} >
+      <div className="">
+        <form className="workout-form" onSubmit={handleSubmit} >
           <input
             type="text"
             name="workoutName"
-            value={this.props.workoutName}
-            onChange={this.props.handleChange}
+            value={workoutName}
+            onChange={handleChange}
             placeholder="Workout name"
           />
-          <label htmlFor="workoutFocus">
+          {/* <label htmlFor="workoutFocus">
             Choose your focus
             <select
               name="workoutFocus"
-              value={this.props.workoutFocus}
-              onChange={this.props.handleChange}
+              value={workoutFocus}
+              onChange={handleChange}
             >
               <option value="Whole Body">Whole Body</option>
               <option value="Upper Body">Upper Body</option>
@@ -30,25 +51,15 @@ class WorkoutForm extends PureComponent {
           </label>
           <textarea
             name="workoutDescription"
-            value={this.props.workoutDescription}
+            value={workoutDescription}
             placeholder="Workout description"
-            onChange={this.props.handleChange}
+            onChange={handleChange}
           />
-          <button type="submit">Create Workout</button>
+          <button type="submit">Create Workout</button> */}
         </form>
       </div>
     );
   }
 }
-
-WorkoutForm.propTypes = {
-  toggleForm: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
-  showForm: PropTypes.bool,
-  workoutName: PropTypes.string,
-  workoutFocus: PropTypes.string,
-  workoutDescription: PropTypes.string,
-};
 
 export default WorkoutForm;

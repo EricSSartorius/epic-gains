@@ -13,7 +13,6 @@ class WorkoutPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showForm: false,
       noOfSets: 1,
       exerciseTime: 60,
       restTime: 120,
@@ -39,9 +38,6 @@ class WorkoutPage extends Component {
 
     Meteor.call('workouts.insert', workoutData, (err, res) => {
       if (!err) {
-        console.log('RES', res);
-        this.setState({ showForm: false });
-
         this.setState({
           workoutName: '',
           workoutFocus: 'Whole Body',
@@ -63,8 +59,14 @@ class WorkoutPage extends Component {
   //   }
   // }
 
-  renderWorkouts() {
-    const filteredWorkouts = this.props.workouts.filter(workout => workout.workoutName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 );
+  updateSearch = (event) => {
+    this.setState({ search: event.target.value.substr(0, 20) });
+  }
+
+  renderWorkouts = () => {
+    const filteredWorkouts = this.props.workouts;
+
+    // filteredWorkouts.filter(workout => workout.workoutName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1);
     return filteredWorkouts.map((workout) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
 
@@ -72,51 +74,54 @@ class WorkoutPage extends Component {
         <Workout
           key={workout._id}
           workout={workout}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
         />
       );
     });
   }
 
-  toggleForm = () => {
-    this.setState({ showForm: !this.state.showForm });
-  }
-
-  updateSearch = (event) => {
-    this.setState({ search: event.target.value.substr(0, 20) });
-  }
-
   render() {
-    if (!this.props.ready) {
+    const {
+      ready,
+      currentUser,
+    } = this.props;
+
+    const {
+      noOfSets,
+      exerciseTime,
+      restTime,
+      workoutName,
+      workoutFocus,
+      workoutDescription,
+      search,
+    } = this.state;
+
+    if (!ready) {
       return <div> Loading </div>;
     }
 
     return (
       <div className="workout-layout">
-        { this.props.currentUser ? (
+        { currentUser ? (
           <div>
-            { this.state.showForm ?
-              <WorkoutForm
-                toggleForm={this.toggleForm}
-                handleSubmit={this.handleSubmit}
-                handleChange={this.handleChange}
-                showForm={this.state.showForm}
-                workoutName={this.state.workoutName}
-                workoutFocus={this.state.workoutFocus}
-                workoutDescription={this.state.workoutDescription}
-              />
-            : null
-            }
             <CircuitForm
-              noOfSets={this.state.noOfSets}
-              exerciseTime={this.state.exerciseTime}
-              restTime={this.state.restTime}
+              noOfSets={noOfSets}
+              exerciseTime={exerciseTime}
+              restTime={restTime}
+            />
+            <WorkoutForm
+              handleSubmit={this.handleSubmit}
+              handleChange={this.handleChange}
+              workoutName={workoutName}
+              workoutFocus={workoutFocus}
+              workoutDescription={workoutDescription}
             />
             <Timer />
             <Searchbar
               updateSearch={this.updateSearch}
-              search={this.state.search}
+              search={search}
             />
-            <button onClick={this.toggleForm}>+ New Workout</button>
             {this.renderWorkouts()}
             <Workout rest />
           </div>
