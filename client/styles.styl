@@ -1,4 +1,3 @@
-@import 'nib'
 @import './styl/pages/_layouts.import'
 @import './styl/utils/_type.import'
 
@@ -15,7 +14,7 @@ html
 
 body
   height 100vh
-  padding-top: $headHeight
+  padding-top: $headerHeight
   > div, > div > div
       height 100vh
 
@@ -23,24 +22,20 @@ header
   background $blue
   box-shadow $shadow
   fixed top left
-  height $headHeight
+  height $headerHeight
   padding $padding * 2 $padding
   transition all 0.3s ease
   width 100%
   z-index: z.nav
+  display flex
+  justify-content space-between
   nav
-    float right
     ul
       margin 0
     li
-        display inline-block
-        margin 0 $margins
-  clearfix();
+      display inline-block
+      margin 0 $margins
 
-footer
-  background $gray
-  transition all 0.3s ease
-  width 100%
 
 /* BUTTONS */
 button

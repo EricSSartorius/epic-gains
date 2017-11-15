@@ -26,7 +26,6 @@ class Workout extends Component {
       return (
         <div className="rest">
           <h2>Rest</h2>
-          <p>Description: Great job, grab some water!</p>
         </div>
       );
     }

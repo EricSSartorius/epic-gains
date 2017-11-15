@@ -15,9 +15,7 @@ Meteor.startup(() => {
   render(
     <Router>
       <div>
-        <header>
-          <MainNav />
-        </header>
+        <MainNav />
         <main className="main-layout">
           <Switch>
             <Route exact path="/" component={WorkoutPage} />

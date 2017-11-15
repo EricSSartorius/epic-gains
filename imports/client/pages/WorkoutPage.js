@@ -6,7 +6,7 @@ import { Workouts } from '/imports/api/Workouts';
 import Workout from '../Workout';
 import WorkoutForm from '../components/WorkoutForm';
 import Searchbar from '../components/Searchbar';
-import Timer from '../components/Timer';
+import WorkoutTimer from '../components/WorkoutTimer';
 import CircuitForm from '../components/CircuitForm';
 
 class WorkoutPage extends Component {
@@ -16,11 +16,31 @@ class WorkoutPage extends Component {
       noOfSets: 1,
       exerciseTime: 60,
       restTime: 120,
+      currentTime: 5,
+      resting: false,
+      timerInProgress: false,
       workoutName: '',
       workoutFocus: 'Whole Body',
       workoutDescription: '',
       search: '',
+      showMore: false,
     };
+  }
+
+  onToggleInterval = () => {
+    this.setState({ timerInProgress: !this.state.timerInProgress });
+  };
+
+  checkTimer = () => {
+    if (this.state.resting) {
+      this.setState({ currentTime: this.state.restTime });
+    } else {
+      this.setState({ currentTime: this.state.exerciseTime });
+    }
+  }
+
+  countDownTimer = () => {
+    this.setState({ currentTime: this.state.currentTime - 1 });
   }
 
   handleChange = (event) => {
@@ -63,6 +83,11 @@ class WorkoutPage extends Component {
     this.setState({ search: event.target.value.substr(0, 20) });
   }
 
+  toggleShowMore = () => {
+    this.setState({ showMore: !this.state.showMore });
+    console.log(this.state.showMore);
+  }
+
   renderWorkouts = () => {
     const filteredWorkouts = this.props.workouts;
 
@@ -89,12 +114,15 @@ class WorkoutPage extends Component {
 
     const {
       noOfSets,
+      currentTime,
       exerciseTime,
       restTime,
+      timerInProgress,
       workoutName,
       workoutFocus,
       workoutDescription,
       search,
+      showMore,
     } = this.state;
 
     if (!ready) {
@@ -116,8 +144,14 @@ class WorkoutPage extends Component {
               workoutName={workoutName}
               workoutFocus={workoutFocus}
               workoutDescription={workoutDescription}
+              showMore={showMore}
             />
-            <Timer />
+            <WorkoutTimer
+              currentTime={currentTime}
+              timerInProgress={timerInProgress}
+              onToggleInterval={this.onToggleInterval}
+              countDownTimer={this.countDownTimer}
+            />
             <Searchbar
               updateSearch={this.updateSearch}
               search={search}

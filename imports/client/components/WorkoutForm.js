@@ -8,6 +8,7 @@ class WorkoutForm extends PureComponent {
     workoutName: PropTypes.string,
     workoutFocus: PropTypes.string,
     workoutDescription: PropTypes.string,
+    toggleShowMore: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -23,6 +24,7 @@ class WorkoutForm extends PureComponent {
       workoutName,
       workoutFocus,
       workoutDescription,
+      toggleShowMore,
     } = this.props;
 
     return (
@@ -35,8 +37,11 @@ class WorkoutForm extends PureComponent {
             onChange={handleChange}
             placeholder="Workout name"
           />
-          {/* <label htmlFor="workoutFocus">
-            Choose your focus
+          <p onClick={toggleShowMore}>Show More...
+          </p>
+          <div className="show-more">
+            <label htmlFor="workoutFocus">
+              Focus
             <select
               name="workoutFocus"
               value={workoutFocus}
@@ -48,14 +53,15 @@ class WorkoutForm extends PureComponent {
               <option value="Core">Core</option>
               <option value="Stretching">Stretching</option>
             </select>
-          </label>
-          <textarea
-            name="workoutDescription"
-            value={workoutDescription}
-            placeholder="Workout description"
-            onChange={handleChange}
-          />
-          <button type="submit">Create Workout</button> */}
+            </label>
+            <textarea
+              name="workoutDescription"
+              value={workoutDescription}
+              placeholder="Workout description"
+              onChange={handleChange}
+            />
+            <button type="submit">Create Workout</button>
+          </div>
         </form>
       </div>
     );
