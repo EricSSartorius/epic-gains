@@ -5,27 +5,29 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import SoundPlayerComponents, { PlayButton, Timer, Progress, Icons } from 'react-soundplayer/components';
-import SoundPlayerAddons, { SoundPlayerContainer } from 'react-soundplayer/addons';
 
-const audio = new Audio('/instantrapairhorn.mp3');
+// const audio = new Audio('/instantrapairhorn.mp3');
 const audio1 = new Audio('/champ.mp3');
 
 class WorkoutTimer extends Component {
+  static propTypes = {
+    numberOfExercises: PropTypes.number.isRequired,
+    numberOfSets: PropTypes.number.isRequired,
+    exerciseTime: PropTypes.number.isRequired,
+    restTime: PropTypes.number.isRequired,
+  }
+
   state = {
     timer: undefined,
     timerInProgress: false,
-    numberOfSets: 3,
-    numberOfExercises: 3,
-    restTime: 15,
-    exerciseTime: 5,
+    resting: false,
     currentTime: 0,
     currentExerciseNumber: 1,
     currentSetNumber: 1,
   }
 
   componentDidMount() {
-    this.setState({ currentTime: this.state.exerciseTime });
+    this.setState({ currentTime: this.props.exerciseTime });
   }
 
   componentWillUnmount() {
@@ -68,40 +70,67 @@ class WorkoutTimer extends Component {
     const {
       currentExerciseNumber,
       currentSetNumber,
-      numberOfExercises,
-      numberOfSets,
+      resting,
     } = this.state;
 
-    if (currentExerciseNumber >= numberOfExercises) {
+    const {
+      numberOfExercises,
+      numberOfSets,
+      restTime,
+    } = this.props;
+
+    if (resting) {
+      this.setState({
+        resting: false,
+        currentExerciseNumber: 1,
+      });
+      this.resetTimer(false);
+    } else if (currentExerciseNumber >= numberOfExercises) {
       if (currentSetNumber >= numberOfSets) {
         this.resetTimer(true);
       } else {
-        this.setState({ currentExerciseNumber: 1, currentSetNumber: currentSetNumber + 1 });
-        // audio1.play();
+        this.setState({
+          resting: true,
+          currentTime: restTime,
+          currentExerciseNumber: 1,
+          currentSetNumber: currentSetNumber + 1,
+        });
+        audio1.play();
         this.resetTimer(false);
       }
     } else {
       this.setState({ currentExerciseNumber: currentExerciseNumber + 1 });
-      // audio1.play();
+      audio1.play();
       this.resetTimer(false);
     }
   }
 
   resetTimer = (hardReset) => {
-    clearInterval(this.state.timer);
+    const {
+      timer,
+      resting,
+    } = this.state;
+
+    const {
+      exerciseTime,
+      restTime,
+    } = this.props;
+
+    clearInterval(timer);
     if (hardReset) {
       this.setState({
         timer: undefined,
         timerInProgress: false,
-        currentTime: this.state.exerciseTime,
+        currentTime: exerciseTime,
         currentSetNumber: 1,
         currentExerciseNumber: 1,
+        resting: false,
       });
     } else {
-      const timer = setInterval(this.tick, 1000);
+      const timerInterval = setInterval(this.tick, 1000);
       this.setState({
-        timer,
-        currentTime: this.state.exerciseTime,
+        timer: timerInterval,
+        currentTime: resting ? restTime : exerciseTime,
       });
     }
   }
@@ -109,12 +138,16 @@ class WorkoutTimer extends Component {
   render() {
     const {
       currentTime,
-      numberOfExercises,
-      numberOfSets,
       currentExerciseNumber,
       currentSetNumber,
       timerInProgress,
+      resting,
     } = this.state;
+
+    const {
+      numberOfExercises,
+      numberOfSets,
+    } = this.props;
 
     return (
       <div>
@@ -124,6 +157,7 @@ class WorkoutTimer extends Component {
         <h3>{currentSetNumber} / {numberOfSets}</h3>
         <h2>Exercises</h2>
         <h3>{currentExerciseNumber} / {numberOfExercises}</h3>
+        <h1>{resting && 'REST' }</h1>
         <button onClick={this.toggleTimer}>
           {timerInProgress ? 'pause' : 'start'}
         </button>
@@ -132,14 +166,6 @@ class WorkoutTimer extends Component {
     );
   }
 }
-
-// Timer.propTypes = {
-//   currentTime: PropTypes.number,
-//   currentUser: PropTypes.object,
-//   timerInProgress: PropTypes.bool,
-//   countDownTimer: PropTypes.func,
-//   onToggleInterval: PropTypes.func,
-// };
 
 export default withTracker(() => {
   const userSub = Meteor.subscribe('currentUser');

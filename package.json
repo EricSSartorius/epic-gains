@@ -18,7 +18,6 @@
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-dom": "^16.1.0",
     "react-router-dom": "^4.2.2",
-    "react-soundplayer": "^1.0.2",
     "simpl-schema": "^0.1.1"
   },
   "devDependencies": {

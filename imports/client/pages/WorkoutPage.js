@@ -10,38 +10,17 @@ import WorkoutTimer from '../components/WorkoutTimer';
 import CircuitForm from '../components/CircuitForm';
 
 class WorkoutPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      noOfSets: 1,
-      exerciseTime: 60,
-      restTime: 120,
-      currentTime: 5,
-      resting: false,
-      timerInProgress: false,
-      workoutName: '',
-      workoutFocus: 'Whole Body',
-      workoutDescription: '',
-      search: '',
-      showMore: false,
-    };
-  }
-
-  onToggleInterval = () => {
-    this.setState({ timerInProgress: !this.state.timerInProgress });
+  state = {
+    numberOfSets: 3,
+    exerciseTime: 60,
+    restTime: 120,
+    timerInProgress: false,
+    workoutName: '',
+    workoutFocus: 'Whole Body',
+    workoutDescription: '',
+    search: '',
+    showMore: false,
   };
-
-  checkTimer = () => {
-    if (this.state.resting) {
-      this.setState({ currentTime: this.state.restTime });
-    } else {
-      this.setState({ currentTime: this.state.exerciseTime });
-    }
-  }
-
-  countDownTimer = () => {
-    this.setState({ currentTime: this.state.currentTime - 1 });
-  }
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -91,7 +70,7 @@ class WorkoutPage extends Component {
   renderWorkouts = () => {
     const filteredWorkouts = this.props.workouts;
 
-    // filteredWorkouts.filter(workout => workout.workoutName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1);
+    filteredWorkouts.filter(workout => workout.workoutName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1);
     return filteredWorkouts.map((workout) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
 
@@ -110,11 +89,11 @@ class WorkoutPage extends Component {
     const {
       ready,
       currentUser,
+      workouts,
     } = this.props;
 
     const {
-      noOfSets,
-      currentTime,
+      numberOfSets,
       exerciseTime,
       restTime,
       timerInProgress,
@@ -126,7 +105,7 @@ class WorkoutPage extends Component {
     } = this.state;
 
     if (!ready) {
-      return <div> Loading </div>;
+      return <div>Loading</div>;
     }
 
     return (
@@ -134,7 +113,7 @@ class WorkoutPage extends Component {
         { currentUser ? (
           <div>
             <CircuitForm
-              noOfSets={noOfSets}
+              numberOfSets={numberOfSets}
               exerciseTime={exerciseTime}
               restTime={restTime}
             />
@@ -147,10 +126,10 @@ class WorkoutPage extends Component {
               showMore={showMore}
             />
             <WorkoutTimer
-              currentTime={currentTime}
-              timerInProgress={timerInProgress}
-              onToggleInterval={this.onToggleInterval}
-              countDownTimer={this.countDownTimer}
+              numberOfExercises={workouts.length}
+              numberOfSets={numberOfSets}
+              exerciseTime={exerciseTime}
+              restTime={restTime}
             />
             <Searchbar
               updateSearch={this.updateSearch}
