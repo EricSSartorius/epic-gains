@@ -12,8 +12,9 @@ import CircuitForm from '../components/CircuitForm';
 class WorkoutPage extends Component {
   state = {
     numberOfSets: 3,
-    exerciseTime: 60,
-    restTime: 120,
+    exerciseTime: 45,
+    exerciseRestTime: 15,
+    setRestTime: 120,
     timerInProgress: false,
     workoutName: '',
     workoutFocus: 'Whole Body',
@@ -23,7 +24,13 @@ class WorkoutPage extends Component {
   };
 
   handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+    let newValue = event.target.value;
+
+    if (event.target.name === 'numberOfSets' || event.target.name === 'exerciseTime' || event.target.name === 'exerciseRestTime' || event.target.nmae === 'setRestTime') {
+      newValue = parseInt(newValue);
+    }
+
+    this.setState({ [event.target.name]: newValue });
   }
 
   handleSubmit = (event) => {
@@ -64,7 +71,6 @@ class WorkoutPage extends Component {
 
   toggleShowMore = () => {
     this.setState({ showMore: !this.state.showMore });
-    console.log(this.state.showMore);
   }
 
   renderWorkouts = () => {
@@ -95,7 +101,8 @@ class WorkoutPage extends Component {
     const {
       numberOfSets,
       exerciseTime,
-      restTime,
+      exerciseRestTime,
+      setRestTime,
       timerInProgress,
       workoutName,
       workoutFocus,
@@ -115,7 +122,9 @@ class WorkoutPage extends Component {
             <CircuitForm
               numberOfSets={numberOfSets}
               exerciseTime={exerciseTime}
-              restTime={restTime}
+              exerciseRestTime={exerciseRestTime}
+              setRestTime={setRestTime}
+              handleChange={this.handleChange}
             />
             <WorkoutForm
               handleSubmit={this.handleSubmit}
@@ -126,17 +135,17 @@ class WorkoutPage extends Component {
               showMore={showMore}
             />
             <WorkoutTimer
-              numberOfExercises={workouts.length}
+              numberOfExercises={3}
               numberOfSets={numberOfSets}
               exerciseTime={exerciseTime}
-              restTime={restTime}
+              exerciseRestTime={exerciseRestTime}
+              setRestTime={setRestTime}
             />
             <Searchbar
               updateSearch={this.updateSearch}
               search={search}
             />
             {this.renderWorkouts()}
-            <Workout rest />
           </div>
         ) : (
           <div>

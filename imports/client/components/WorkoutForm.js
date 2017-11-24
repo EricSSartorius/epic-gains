@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-class WorkoutForm extends PureComponent {
+export default class WorkoutForm extends PureComponent {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     handleChange: PropTypes.func.isRequired,
@@ -15,6 +15,7 @@ class WorkoutForm extends PureComponent {
     workoutName: '',
     workoutFocus: 'Whole Body',
     workoutDescription: '',
+    toggleShowMore: false,
   }
 
   render() {
@@ -67,5 +68,3 @@ class WorkoutForm extends PureComponent {
     );
   }
 }
-
-export default WorkoutForm;

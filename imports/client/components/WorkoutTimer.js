@@ -1,20 +1,16 @@
-/* eslint import/no-extraneous-dependencies: 0 */
-/* eslint import/no-unresolved: 0 */
-/* eslint import/extensions: 0 */
 import React, { Component } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 
 // const audio = new Audio('/instantrapairhorn.mp3');
 const audio1 = new Audio('/champ.mp3');
 
-class WorkoutTimer extends Component {
+export default class WorkoutTimer extends Component {
   static propTypes = {
     numberOfExercises: PropTypes.number.isRequired,
     numberOfSets: PropTypes.number.isRequired,
     exerciseTime: PropTypes.number.isRequired,
-    restTime: PropTypes.number.isRequired,
+    exerciseRestTime: PropTypes.number.isRequired,
+    setRestTime: PropTypes.number.isRequired,
   }
 
   state = {
@@ -44,7 +40,11 @@ class WorkoutTimer extends Component {
   tick = () => {
     const currentTime = this.state.currentTime - 1;
     if (currentTime <= 0) {
-      this.resetCheck();
+      this.setState({
+        resting: !this.state.resting,
+      }, () => {
+        this.resetCheck();
+      });
     } else {
       this.setState({ currentTime });
     }
@@ -76,44 +76,41 @@ class WorkoutTimer extends Component {
     const {
       numberOfExercises,
       numberOfSets,
-      restTime,
     } = this.props;
 
+    let hardReset = false;
+    console.log(resting);
+    audio1.play();
+
     if (resting) {
-      this.setState({
-        resting: false,
-        currentExerciseNumber: 1,
-      });
-      this.resetTimer(false);
+      return this.resetTimer(hardReset);
     } else if (currentExerciseNumber >= numberOfExercises) {
       if (currentSetNumber >= numberOfSets) {
-        this.resetTimer(true);
+        hardReset = true;
       } else {
         this.setState({
-          resting: true,
-          currentTime: restTime,
           currentExerciseNumber: 1,
           currentSetNumber: currentSetNumber + 1,
         });
-        audio1.play();
-        this.resetTimer(false);
       }
     } else {
       this.setState({ currentExerciseNumber: currentExerciseNumber + 1 });
-      audio1.play();
-      this.resetTimer(false);
     }
+    return this.resetTimer(hardReset);
   }
 
   resetTimer = (hardReset) => {
     const {
       timer,
       resting,
+      currentExerciseNumber,
     } = this.state;
 
     const {
       exerciseTime,
-      restTime,
+      exerciseRestTime,
+      setRestTime,
+      numberOfExercises,
     } = this.props;
 
     clearInterval(timer);
@@ -128,6 +125,8 @@ class WorkoutTimer extends Component {
       });
     } else {
       const timerInterval = setInterval(this.tick, 1000);
+      const restTime = currentExerciseNumber >= numberOfExercises ? setRestTime : exerciseRestTime;
+
       this.setState({
         timer: timerInterval,
         currentTime: resting ? restTime : exerciseTime,
@@ -166,11 +165,3 @@ class WorkoutTimer extends Component {
     );
   }
 }
-
-export default withTracker(() => {
-  const userSub = Meteor.subscribe('currentUser');
-  return {
-    currentUser: Meteor.user(),
-    ready: userSub.ready(),
-  };
-})(WorkoutTimer);

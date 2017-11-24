@@ -16,19 +16,11 @@ class Workout extends Component {
 
   render() {
     const {
-      rest,
       workout,
       handleChange,
       handleSubmit,
     } = this.props;
 
-    if (rest) {
-      return (
-        <div className="rest">
-          <h2>Rest</h2>
-        </div>
-      );
-    }
     return (
       <div className="workout">
         <button className="delete" onClick={this.deleteThisWorkout}>
@@ -67,7 +59,6 @@ class Workout extends Component {
 }
 
 Workout.propTypes = {
-  rest: PropTypes.bool,
   workout: PropTypes.object,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,

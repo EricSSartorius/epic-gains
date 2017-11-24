@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Searchbar extends PureComponent {
   render() {
@@ -14,3 +15,8 @@ export default class Searchbar extends PureComponent {
     );
   }
 }
+
+Searchbar.propTypes = {
+  search: PropTypes.string.isRequired,
+  updateSearch: PropTypes.func.isRequired,
+};

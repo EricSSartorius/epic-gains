@@ -1,9 +1,8 @@
-import { Workouts } from '/imports/api/Workouts';
+import { Workouts } from './Workouts';
 import { Meteor } from 'meteor/meteor';
 
 Meteor.methods({
   'workouts.insert': function (workoutData) {
-    console.log('INSERT', workoutData);
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
@@ -33,7 +32,7 @@ Meteor.methods({
   //   }
   //   Workouts.update(workoutId, { $set: { private: setToPrivate } });
   // },
-  'workouts.update': function (workoutData) {
+  'workouts.update': function (workoutId, workoutData) {
     const workout = Workouts.findOne(workoutId);
 
     if (workout.owner !== this.userId) {
