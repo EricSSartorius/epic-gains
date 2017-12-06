@@ -13,40 +13,52 @@ html
   box-sizing: inherit
 
 body
+  background: colors.well
   height 100vh
   padding-top: $headerHeight
   > div, > div > div
       height 100vh
 
 header
-  background $blue
+  background: colors.main
   box-shadow $shadow
   fixed top left
   height $headerHeight
   padding $padding * 2 $padding
-  transition all 0.3s ease
+  transition: all speed.med ease
   width 100%
   z-index: z.nav
   display flex
   justify-content space-between
+  align-items center
+  .branding
+    color: textColor.white
   nav
     ul
       margin 0
-    li
-      display inline-block
-      margin 0 $margins
-
+      li
+        display inline-block
+        margin 0 $margins
+        a
+          color: textColor.highlight
 
 /* BUTTONS */
 button
 .button
-  background $blue
+  background: colors.button
   border none
   border-radius $rounded
-  color: textColor.button
+  color: textColor.main
+  padding $padding
+  margin $margins
   trans()
   &:hover
-    background $blue - 20
+    background: colors.highlight
+  &.add
+    background: colors.add
+    color: textColor.add
+  &-100
+    width 100%
 
 /* LOGIN */
 #login-buttons
@@ -60,6 +72,40 @@ button
     left auto
     right 0
     top 15px
+
+/* INPUTS */
+form
+  label
+    color: textColor.main
+  input[type=text]
+  input[type=number]
+    border none
+    background: colors.white
+    border-radius $rounded  
+    color: textColor.input
+    margin $margins 0 $margins * 2
+    padding $padding
+    &::placeholder
+      color: textColor.main
+  select 
+    width 100%;
+    border none
+    background-color: colors.white
+    border-radius $rounded
+    color: textColor.input
+    margin $margins 0 $margins * 2
+    padding $padding
+  textarea
+    width 100%
+    background-color: colors.white
+    border-radius $rounded 
+    color: textColor.input 
+    margin $margins 0 $margins * 2
+    padding $padding
+
+.searchbar
+  input
+    //
 
 // .popup
 //   background-color $gray

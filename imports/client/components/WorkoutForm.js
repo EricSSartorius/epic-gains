@@ -8,14 +8,12 @@ export default class WorkoutForm extends PureComponent {
     workoutName: PropTypes.string,
     workoutFocus: PropTypes.string,
     workoutDescription: PropTypes.string,
-    toggleShowMore: PropTypes.bool,
   }
 
   static defaultProps = {
     workoutName: '',
     workoutFocus: 'Whole Body',
     workoutDescription: '',
-    toggleShowMore: false,
   }
 
   render() {
@@ -25,46 +23,44 @@ export default class WorkoutForm extends PureComponent {
       workoutName,
       workoutFocus,
       workoutDescription,
-      toggleShowMore,
     } = this.props;
 
     return (
-      <div className="">
-        <form className="workout-form" onSubmit={handleSubmit} >
+      <form className="workout-form panel" onSubmit={handleSubmit} >
+        <label htmlFor="workoutName">
+        Workout Name
           <input
             type="text"
             name="workoutName"
             value={workoutName}
             onChange={handleChange}
-            placeholder="Workout name"
           />
-          <p onClick={toggleShowMore}>Show More...
-          </p>
-          <div className="show-more">
-            <label htmlFor="workoutFocus">
-              Focus
-            <select
-              name="workoutFocus"
-              value={workoutFocus}
-              onChange={handleChange}
-            >
-              <option value="Whole Body">Whole Body</option>
-              <option value="Upper Body">Upper Body</option>
-              <option value="Lower Body">Lower Body</option>
-              <option value="Core">Core</option>
-              <option value="Stretching">Stretching</option>
-            </select>
-            </label>
-            <textarea
-              name="workoutDescription"
-              value={workoutDescription}
-              placeholder="Workout description"
-              onChange={handleChange}
-            />
-            <button type="submit">Create Workout</button>
-          </div>
-        </form>
-      </div>
+        </label>
+
+        <label htmlFor="workoutFocus">
+          Focus
+          <select
+            name="workoutFocus"
+            value={workoutFocus}
+            onChange={handleChange}
+          >
+            <option value="Whole Body">Whole Body</option>
+            <option value="Upper Body">Upper Body</option>
+            <option value="Lower Body">Lower Body</option>
+            <option value="Core">Core</option>
+            <option value="Stretching">Stretching</option>
+          </select>
+        </label>
+        <label htmlFor="workoutDescription">
+          Workout Description
+          <textarea
+            name="workoutDescription"
+            value={workoutDescription}
+            onChange={handleChange}
+          />
+        </label>
+        <button type="submit" className="add">+ Add Exercise</button>
+      </form>
     );
   }
 }

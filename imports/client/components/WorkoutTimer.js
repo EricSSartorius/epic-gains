@@ -149,14 +149,14 @@ export default class WorkoutTimer extends Component {
     } = this.props;
 
     return (
-      <div>
-        <h2>Time</h2>
-        <h3>{this.getTimeSpan(currentTime)}</h3>
+      <div className="workout-timer panel">
+        <h2>Exercise Time Remaining</h2>
+        <h1 className="number">{this.getTimeSpan(currentTime)}</h1>
         <h2>Sets</h2>
-        <h3>{currentSetNumber} / {numberOfSets}</h3>
+        <h3 className="number">{currentSetNumber} / {numberOfSets}</h3>
         <h2>Exercises</h2>
-        <h3>{currentExerciseNumber} / {numberOfExercises}</h3>
-        <h1>{resting && 'REST' }</h1>
+        <h3 className="number">{currentExerciseNumber} / {numberOfExercises}</h3>
+        <h1 className="number">{resting && 'REST' }</h1>
         <button onClick={this.toggleTimer}>
           {timerInProgress ? 'pause' : 'start'}
         </button>

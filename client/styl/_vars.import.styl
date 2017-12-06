@@ -1,23 +1,42 @@
 // Colors
-$black = #000000
-$gray = #E8E8E8
-$green = #00AD83
-$blue = #3b5998
-$red = #ED2939
+$black = #222
+$cyan = #55A8DB
+$dark-purple = #312C49
+$extra-light-purple = #B1A5D3
+$grey = #D8D8D8
+$green = #43B480
+$light-green = #C9EFDE
+$light-grey = #EEE
+$light-purple = #4E4574
+$purple = #393156
 $white = #ffffff
+
 socialColor = {
   twitter: #00aced,
   facebook: #3b5998,
   google: #dd4b39,
   youtube: #bb0000
 }
+
 textColor = {
-  body: $black,
-  button: $white,
-  headline: $blue,
-  linkInverse: $blue,
-  link: $white,
-  subheader: $gray
+  add: $light-green,
+  headline: $extra-light-purple,
+  highlight: $cyan,
+  input: $purple,
+  link: $extra-light-purple,
+  main: $extra-light-purple,
+  white: $white
+}
+
+colors = {
+  add: $green,
+  border: $grey,
+  button: $purple,
+  highlight: $light-purple,
+  main: $purple,
+  shadow: $black,
+  well: $dark-purple,
+  white: $white
 }
 
 // Fonts
@@ -48,6 +67,13 @@ z = {
 $rounded = 4px
 $circle = 50%
 
+// Animation speed
+speed = {
+  slow: 0.5s,
+  med: 0.3s,
+  fast: 0.2s
+}
+
 // Sizes
 $baseText = 1em
 $inputText = $baseText
@@ -57,8 +83,8 @@ $headline3 = $baseText
 $smallText = $baseText * 0.9
 $buttonText = $baseText * 0.9
 
-$margins = 10px
+$margins = 0.5em
 $padding = $margins
 
 // Shadow
-$shadow = 1px 3px 4px rgba(#000000, 0.22), -3px 1px 4px rgba(#000000, 0.15)
+$shadow = 1px 3px 4px rgba(colors.shadow, 0.22), -3px 1px 4px rgba(colors.shadow, 0.15)

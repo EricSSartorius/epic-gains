@@ -7,8 +7,10 @@ import AccountsUIWrapper from '../utilities/AccountsUIWrapper';
 const MainNav = () =>
   (
     <header>
-      <Link to="/">Epic Gains</Link>
-      <nav className="main-nav">
+      <h2>
+        <Link to="/" className="branding">Epic Gains</Link>
+      </h2>
+      <nav>
         <ul>
           {Meteor.userId() && <li><Link to="/settings">Settings</Link></li>}
           <li><AccountsUIWrapper /></li>

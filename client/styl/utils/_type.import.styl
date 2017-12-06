@@ -6,18 +6,21 @@
 allHeadings = 'h1,h2,h3,h4,h5,h6'
 
 p
-  color: textColor.body
+  color: textColor.main
   font-family primaryFont
   font-size $baseText
   line-height 1.5
 
 { allHeadings }
-  color: textColor.headline
+  color: textColor.white
 
 a
 .link
   color: textColor.link
   text-decoration none
+
+.number
+  color: textColor.highlight
 
 ol
 ul
@@ -39,7 +42,6 @@ form
   select
   textarea
     @extend form button
-    background-color $white
-    border 1px solid $gray;
+    background-color: colors.main
+    border: 1px solid colors.border
     border-radius $rounded / 2
-    box-sizing border-box

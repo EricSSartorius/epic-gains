@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class Searchbar extends PureComponent {
   render() {
     return (
-      <div className="searchbar">
+      <div className="searchbar panel">
         <input
           type="text"
           value={this.props.search}

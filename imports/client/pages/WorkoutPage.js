@@ -135,7 +135,7 @@ class WorkoutPage extends Component {
               showMore={showMore}
             />
             <WorkoutTimer
-              numberOfExercises={3}
+              numberOfExercises={workouts.length}
               numberOfSets={numberOfSets}
               exerciseTime={exerciseTime}
               exerciseRestTime={exerciseRestTime}
@@ -171,6 +171,7 @@ export default withTracker((props) => {
   } else {
     workoutsArray = Workouts.find({}, { sort: { createdAt: -1 } }).fetch();
   }
+  console.log('USER', Meteor.user());
   return {
     currentUser: Meteor.user(),
     ready: workoutsSub.ready() && userSub.ready(),

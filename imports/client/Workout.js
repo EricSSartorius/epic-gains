@@ -22,7 +22,7 @@ class Workout extends Component {
     } = this.props;
 
     return (
-      <div className="workout">
+      <div className="workout panel">
         <button className="delete" onClick={this.deleteThisWorkout}>
           &times;
         </button>
@@ -30,7 +30,7 @@ class Workout extends Component {
         <Link to={`/workouts/${workout._id}`}>
           <h2>{this.props.workout.workoutName}</h2>
         </Link>
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}>
           <label htmlFor="workoutFocus">
             Focus
               <select
@@ -52,7 +52,7 @@ class Workout extends Component {
             onChange={handleChange}
           />
           <button type="submit">Update</button>
-        </form>
+        </form> */}
       </div>
     );
   }

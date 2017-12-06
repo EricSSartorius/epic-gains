@@ -2,24 +2,39 @@
 @import '../_vars.import'
 @import '../_easings.import'
 @import '../_funcs.import'
+@import '../_grid.import'
 
 /* MAINLAYOUT */
 .main-layout
-  margin $margins * 6 auto
   max-width $med
   min-height 100vh
   padding $margins
-
-/* Circuit Form */
-.circuit-form
-  display flex
-  justify-content space-between
-
-/* WORKOUTS */
-.workout-layout
-  .workout, .rest
-    background $gray
+  .panel
+    background: colors.highlight
     border-radius $rounded
     box-shadow $shadow
     margin $margins 0
     padding $padding * 2
+    &.searchbar
+      background none
+      box-shadow none
+
+/* FORMS */
+.circuit-form
+.workout-form
+form
+  // display flex
+  // flex-direction column
+  // justify-content space-between
+
+/* SEARCHBAR */
+
+/* TIMER */
+.workout-timer
+  //
+
+/* WORKOUTS */
+.workout-layout
+  .workout
+  .rest
+    //

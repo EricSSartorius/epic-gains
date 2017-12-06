@@ -20,7 +20,7 @@ export default class CircuitForm extends PureComponent {
     } = this.props;
 
     return (
-      <div className="circuit-form">
+      <form className="circuit-form panel">
         <label>
           <span>Number of Sets</span>
           <input
@@ -57,7 +57,7 @@ export default class CircuitForm extends PureComponent {
             onChange={handleChange}
           />
         </label>
-      </div>
+      </form>
     );
   }
 }
