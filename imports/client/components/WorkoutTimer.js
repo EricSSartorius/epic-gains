@@ -150,17 +150,34 @@ export default class WorkoutTimer extends Component {
 
     return (
       <div className="workout-timer panel">
-        <h2>Exercise Time Remaining</h2>
-        <h1 className="number">{this.getTimeSpan(currentTime)}</h1>
-        <h2>Sets</h2>
-        <h3 className="number">{currentSetNumber} / {numberOfSets}</h3>
-        <h2>Exercises</h2>
-        <h3 className="number">{currentExerciseNumber} / {numberOfExercises}</h3>
-        <h1 className="number">{resting && 'REST' }</h1>
-        <button onClick={this.toggleTimer}>
-          {timerInProgress ? 'pause' : 'start'}
-        </button>
-        <button onClick={() => this.resetTimer(true)}>reset</button>
+        <div className="timer-top">
+          <div className="sets">
+            <h2>Sets</h2>
+            <h3 className="number">{currentSetNumber} / {numberOfSets}</h3>
+          </div>
+          <div className="exercises">
+            <h2>Exercises</h2>
+            <h3 className="number">{currentExerciseNumber} / {numberOfExercises}</h3>
+          </div>
+        </div>
+        <div className="timer-middle">
+          <h2>Exercise Time Remaining</h2>
+          <h1 className="number">{this.getTimeSpan(currentTime)}</h1>
+        </div>
+        {resting ? (
+          <div className="timer-rest">
+            <h1 className="number">REST</h1>
+          </div>
+          ) : (
+          null
+        )}
+        <div className="timer-buttons">
+
+          <button onClick={this.toggleTimer}>
+            {timerInProgress ? 'pause' : 'start'}
+          </button>
+          <button onClick={() => this.resetTimer(true)}>reset</button>
+        </div>
       </div>
     );
   }

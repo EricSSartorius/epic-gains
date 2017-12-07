@@ -24,6 +24,7 @@ export default class CircuitForm extends PureComponent {
         <label>
           <span>Number of Sets</span>
           <input
+            className="input"
             type="number"
             name="numberOfSets"
             value={numberOfSets}
@@ -33,6 +34,7 @@ export default class CircuitForm extends PureComponent {
         <label>
           <span>Exercise Time</span>
           <input
+            className="input"
             type="number"
             name="exerciseTime"
             value={exerciseTime}
@@ -42,6 +44,7 @@ export default class CircuitForm extends PureComponent {
         <label>
           <span>Rest Time Between Exercises</span>
           <input
+            className="input"
             type="number"
             name="exerciseRestTime"
             value={exerciseRestTime}
@@ -51,6 +54,7 @@ export default class CircuitForm extends PureComponent {
         <label>
           <span>Rest Time Between Sets</span>
           <input
+            className="input"
             type="number"
             name="setRestTime"
             value={setRestTime}

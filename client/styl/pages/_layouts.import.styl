@@ -4,13 +4,14 @@
 @import '../_funcs.import'
 @import '../_grid.import'
 
-/* MAINLAYOUT */
+/* MAIN LAYOUT */
 .main-layout
   max-width $med
   min-height 100vh
   padding $margins
   margin auto
   .panel
+    trans()
     background: colors.highlight
     border-radius $rounded
     box-shadow $shadow
@@ -21,22 +22,50 @@
       box-shadow none
 
 /* FORMS */
-.circuit-form
-.workout-form
-form
-  // display flex
-  // flex-direction column
-  // justify-content space-between
-
-/* SEARCHBAR */
+.workout-form 
+  display flex
+  flex-direction column 
 
 /* TIMER */
 .workout-timer
-  //
+  display flex
+  flex-direction column
+  text-align center
+  .number
+    color: textColor.highlight
+  .timer-top
+    display flex
+    justify-content space-around
+    flex-direction row
+
+/* SEARCHBAR */
+.searchbar 
+  display flex
+  justify-content flex-end
 
 /* WORKOUTS */
 .workout-layout
   .workout
-  .rest
-    h2
-      text-transform uppercase
+    .link
+      display flex
+      justify-content space-between
+      .workout-title
+        display flex
+        align-items center
+        h3
+          text-transform uppercase
+        p
+          margin-left $margins
+    .icon-edit
+      opacity 0
+    &:hover
+      background: colors.main
+      // cursor pointer
+      .icon-edit 
+        opacity 1
+    &.edit
+      .workout-top
+        display flex
+        justify-content space-between
+      &:hover
+        background: colors.highlight

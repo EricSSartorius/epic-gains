@@ -5,6 +5,10 @@
 
 allHeadings = 'h1,h2,h3,h4,h5,h6'
 
+p,
+{ allHeadings }
+  font-family primaryFont
+
 p
   color: textColor.main
   font-family primaryFont
@@ -14,13 +18,16 @@ p
 { allHeadings }
   color: textColor.white
 
-a
+a,
 .link
   color: textColor.link
   text-decoration none
 
-.number
-  color: textColor.highlight
+i
+  trans()
+
+i.white
+  color: textColor.white
 
 ol
 ul

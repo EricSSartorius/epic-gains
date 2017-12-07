@@ -7,8 +7,8 @@ html
   box-sizing: border-box
   height 100%
 
-*
-*:before
+*,
+*:before,
 *:after
   box-sizing: inherit
 
@@ -33,6 +33,7 @@ header
   align-items center
   .branding
     color: textColor.white
+    text-transform uppercase
   nav
     ul
       margin 0
@@ -43,7 +44,7 @@ header
           color: textColor.highlight
 
 /* BUTTONS */
-button
+button,
 .button
   background: colors.button
   border none
@@ -53,12 +54,12 @@ button
   margin $margins
   trans()
   &:hover
-    background: colors.highlight
+    background: colors.darken
   &.add
     background: colors.add
-    color: textColor.add
-  &-100
-    width 100%
+    color: textColor.white
+  &.icon
+    background none
 
 /* LOGIN */
 #login-buttons
@@ -66,47 +67,57 @@ button
     @extend .button
   #login-dropdown-list
     border none
-    border-radius 0
+    border-radius $rounded
     box-shadow: $shadow
-    margin $margins * 0
+    margin 0
     left auto
     right 0
     top 15px
 
 /* INPUTS */
+.input
+  border none
+  background: colors.white
+  border-radius $rounded  
+  color: textColor.input
+  margin $margins 0 $margins * 2
+  padding $padding
+  &::placeholder
+    color: textColor.main
+  &:focus
+    outline none
+
 form
   label
     color: textColor.main
     margin 0
-  input[type=text]
+  input[type=text],
   input[type=number]
-    border none
-    background: colors.white
-    border-radius $rounded  
-    color: textColor.input
-    margin $margins 0 $margins * 2
-    padding $padding
-    &::placeholder
-      color: textColor.main
-  select 
-    width 100%;
-    border none
-    background-color: colors.white
-    border-radius $rounded
-    color: textColor.input
-    margin $margins 0 $margins * 2
-    padding $padding
+    @extend .input
+  select, 
   textarea
-    width 100%
     background-color: colors.white
     border-radius $rounded 
     color: textColor.input 
     margin $margins 0 $margins * 2
-    padding $padding
+    &:focus
+      outline none
+  select 
+    // padding $padding
+    height $padding * 5
+  textarea
+    padding $padding * 2 $padding
+    width 50%
 
 .searchbar
   input
     //
+
+/* UTILS */
+.loading
+  margin-top $margins * 5
+  text-align center
+
 
 // .popup
 //   background-color $gray

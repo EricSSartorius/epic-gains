@@ -5,6 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import { render } from 'react-dom';
+
 import ScrollToTop from './utilities/ScrollToTop';
 import MainNav from './layouts/MainNav';
 import NotFound from './pages/NotFound';

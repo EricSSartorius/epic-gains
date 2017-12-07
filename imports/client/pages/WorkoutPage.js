@@ -112,7 +112,12 @@ class WorkoutPage extends Component {
     } = this.state;
 
     if (!ready) {
-      return <div>Loading</div>;
+      return (
+        <div className="loading">
+          <i className="fa fa-spinner fa-pulse fa-3x fa-fw white" />
+          <span className="sr-only">Loading...</span>
+        </div>
+      );
     }
 
     return (

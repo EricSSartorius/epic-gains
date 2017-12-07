@@ -30,6 +30,7 @@ export default class WorkoutForm extends PureComponent {
         <label htmlFor="workoutName">
         Workout Name
           <input
+            className="input"
             type="text"
             name="workoutName"
             value={workoutName}
