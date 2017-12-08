@@ -66,11 +66,12 @@ export default class WorkoutTimer extends Component {
     }
   }
 
-  resetCheck = () => {
+  resetCheck = (skip) => {
     const {
       currentExerciseNumber,
       currentSetNumber,
       resting,
+      timer,
     } = this.state;
 
     const {
@@ -79,10 +80,13 @@ export default class WorkoutTimer extends Component {
     } = this.props;
 
     let hardReset = false;
-    audio1.play();
+
+    if (!skip) {
+      audio1.play();
+    }
 
     if (resting) {
-      return this.resetTimer(hardReset);
+      return this.resetTimer(hardReset, skip);
     } else if (currentExerciseNumber >= numberOfExercises) {
       if (currentSetNumber >= numberOfSets) {
         hardReset = true;
@@ -95,14 +99,15 @@ export default class WorkoutTimer extends Component {
     } else {
       this.setState({ currentExerciseNumber: currentExerciseNumber + 1 });
     }
-    return this.resetTimer(hardReset);
+    return this.resetTimer(hardReset, skip);
   }
 
-  resetTimer = (hardReset) => {
+  resetTimer = (hardReset, skip) => {
     const {
-      timer,
       resting,
       currentExerciseNumber,
+      timerInProgress,
+      timer,
     } = this.state;
 
     const {
@@ -113,6 +118,7 @@ export default class WorkoutTimer extends Component {
     } = this.props;
 
     clearInterval(timer);
+
     if (hardReset) {
       this.setState({
         timer: undefined,
@@ -123,7 +129,7 @@ export default class WorkoutTimer extends Component {
         resting: false,
       });
     } else {
-      const timerInterval = setInterval(this.tick, 1000);
+      const timerInterval = skip && !timerInProgress ? undefined : setInterval(this.tick, 1000);
       const restTime = currentExerciseNumber >= numberOfExercises ? setRestTime : exerciseRestTime;
 
       this.setState({
@@ -171,9 +177,10 @@ export default class WorkoutTimer extends Component {
         <div className="timer-buttons">
 
           <button onClick={this.toggleTimer}>
-            {timerInProgress ? 'pause' : 'start'}
+            {timerInProgress ? 'Pause' : 'Start'}
           </button>
-          <button onClick={() => this.resetTimer(true)}>reset</button>
+          <button onClick={() => this.resetCheck(true)}>Skip</button>
+          <button onClick={() => this.resetTimer(true)}>Reset</button>
         </div>
         {timerInProgress &&
           <div className="timer-exercises">

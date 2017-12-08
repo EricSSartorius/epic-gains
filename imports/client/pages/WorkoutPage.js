@@ -16,29 +16,6 @@ import CircuitForm from '../components/CircuitForm';
 import WorkoutItem from '../components/WorkoutItem';
 import WorkoutList from '../components/WorkoutList';
 
-// const SortableItem = SortableElement(({ workout }) => (
-//   <div className="workout panel">
-//     <Link to="/workouts/WORKOUTID" className="link">
-//       {workout}
-//       <div className="workout-title">
-//         {/* <h3>{workout.workoutName}</h3>
-//         <p>({workout.workoutFocus})</p> */}
-//       </div>
-//       <button className="icon icon-edit" >
-//         <i className="fa fa-pencil link" />
-//       </button>
-//     </Link>
-//   </div>
-// ));
-
-// const SortableList = SortableContainer(({ workouts }) => (
-//   <div >
-//     {workouts.map((workout, index) => (
-//       <WorkoutItem key={`workout-${index}`} index={index} workout={workout} />
-//       ))}
-//   </div>
-// ));
-
 class WorkoutPage extends Component {
   state = {
     numberOfSets: 3,
@@ -116,8 +93,16 @@ class WorkoutPage extends Component {
   //   }
   // }
 
+  randomize = () => {
+    console.log('RANDOMIZED WORKOUT ORDER');
+  }
+
   updateSearch = (event) => {
     this.setState({ search: event.target.value.substr(0, 20) });
+  }
+
+  updateFilter = (event) => {
+    console.log('UPDATED FILTER');
   }
 
   toggleShowMore = () => {
@@ -175,6 +160,13 @@ class WorkoutPage extends Component {
       <div className="workout-layout">
         { currentUser ? (
           <div>
+            <WorkoutTimer
+              numberOfExercises={workouts.length}
+              numberOfSets={numberOfSets}
+              exerciseTime={exerciseTime}
+              exerciseRestTime={exerciseRestTime}
+              setRestTime={setRestTime}
+            />
             <CircuitForm
               numberOfSets={numberOfSets}
               exerciseTime={exerciseTime}
@@ -190,15 +182,10 @@ class WorkoutPage extends Component {
               workoutDescription={workoutDescription}
               showMore={showMore}
             />
-            <WorkoutTimer
-              numberOfExercises={workouts.length}
-              numberOfSets={numberOfSets}
-              exerciseTime={exerciseTime}
-              exerciseRestTime={exerciseRestTime}
-              setRestTime={setRestTime}
-            />
             <Searchbar
               updateSearch={this.updateSearch}
+              updateFilter={this.updateFilter}
+              randomize={this.randomize}
               search={search}
             />
             {/* <WorkoutList workouts={this.state.workouts} onSortEnd={this.onSortEnd} />
