@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 
 Accounts.onCreateUser((options, user) => {
   if (Meteor.settings.private.admins.indexOf(options.email) > -1) {
-    console.log(options, user);
     user.roles = ['admin'];
   }
   return user;

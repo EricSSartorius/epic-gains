@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { SortableElement } from 'react-sortable-hoc';
 
 class Workout extends Component {
   state = {

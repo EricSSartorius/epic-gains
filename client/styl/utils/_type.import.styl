@@ -6,6 +6,7 @@
 allHeadings = 'h1,h2,h3,h4,h5,h6'
 
 p,
+label,
 { allHeadings }
   font-family primaryFont
 
@@ -35,20 +36,52 @@ ul
   padding-left 0
 
 /* FORMS */
-form
+// form
+//   padding $padding
+//   label
+//     display block
+//     margin $margins $margins * 2
+//   input[type="text"]
+//   input[type="email"]
+//   input[type="password"]
+//   input[type="tel"]
+//   input[type="number"]
+//   select
+//   textarea
+//     // @extend form button
+//     background-color: colors.main
+//     border: 1px solid colors.border
+//     border-radius $rounded / 2
+
+.input
+  border none
+  background: colors.white
+  border-radius $rounded  
+  color: textColor.input
+  display block
+  margin $margins 0
   padding $padding
-  button
+  &::placeholder
+    color: textColor.main
+  &:focus
+    outline none
+
+form
   label
+    color: textColor.main
     display block
-    margin $margins $margins * 2
-  input[type="text"]
+    margin 0
+  input[type=text]
   input[type="email"]
   input[type="password"]
   input[type="tel"]
   input[type="number"]
-  select
+  select, 
   textarea
-    @extend form button
-    background-color: colors.main
-    border: 1px solid colors.border
-    border-radius $rounded / 2
+    @extend .input
+    width 100%
+    margin $margins 0 $margins * 3
+  select 
+    height $padding * 5
+  textarea
+    padding $padding * 2 $padding

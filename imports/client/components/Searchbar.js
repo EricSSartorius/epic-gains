@@ -10,7 +10,7 @@ export default class Searchbar extends PureComponent {
           type="text"
           value={this.props.search}
           onChange={this.props.updateSearch}
-          placeholder="Find Workout"
+          placeholder="Find Exercise"
         />
       </div>
     );

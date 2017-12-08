@@ -1,6 +1,7 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 const NotFound = () =>
-  <h1>404... This page is not found!</h1>;
+  <Redirect to="" />;
 
 export default NotFound;

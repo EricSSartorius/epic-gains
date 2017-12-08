@@ -1,13 +1,43 @@
+/* eslint jsx-a11y/anchor-is-valid: 0 */
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
+
 import { Workouts } from '/imports/api/Workouts';
 import Workout from '../Workout';
 import WorkoutForm from '../components/WorkoutForm';
 import Searchbar from '../components/Searchbar';
 import WorkoutTimer from '../components/WorkoutTimer';
 import CircuitForm from '../components/CircuitForm';
+
+import WorkoutItem from '../components/WorkoutItem';
+import WorkoutList from '../components/WorkoutList';
+
+// const SortableItem = SortableElement(({ workout }) => (
+//   <div className="workout panel">
+//     <Link to="/workouts/WORKOUTID" className="link">
+//       {workout}
+//       <div className="workout-title">
+//         {/* <h3>{workout.workoutName}</h3>
+//         <p>({workout.workoutFocus})</p> */}
+//       </div>
+//       <button className="icon icon-edit" >
+//         <i className="fa fa-pencil link" />
+//       </button>
+//     </Link>
+//   </div>
+// ));
+
+// const SortableList = SortableContainer(({ workouts }) => (
+//   <div >
+//     {workouts.map((workout, index) => (
+//       <WorkoutItem key={`workout-${index}`} index={index} workout={workout} />
+//       ))}
+//   </div>
+// ));
 
 class WorkoutPage extends Component {
   state = {
@@ -21,7 +51,28 @@ class WorkoutPage extends Component {
     workoutDescription: '',
     search: '',
     showMore: false,
+    // workouts: [{ workoutName: 'workout 1' }, { workoutName: 'workout 2' }, { workoutName: 'workout 3' }, { workoutName: 'workout 4' }, { workoutName: 'workout 5' }],
   };
+
+
+  // onSortEnd = ({ oldIndex, newIndex }) => {
+  //   // const workoutId = '';
+  //   // const workoutData = '';
+  //   // Meteor.call('workouts.update', workoutId, workoutData, (err, res) => {
+  //   //   if (!err) {
+  //   //     this.setState({
+  //   //       workoutId: '',
+  //   //     });
+  //   //   } else {
+  //   //     console.log(err);
+  //   //   }
+  //   // });
+
+  //   this.setState({
+  //     workouts: arrayMove(this.state.workouts, oldIndex, newIndex),
+  //   });
+  //   console.log('PAGE UPDATE', oldIndex, newIndex);
+  // };
 
   handleChange = (event) => {
     let newValue = event.target.value;
@@ -150,6 +201,8 @@ class WorkoutPage extends Component {
               updateSearch={this.updateSearch}
               search={search}
             />
+            {/* <WorkoutList workouts={this.state.workouts} onSortEnd={this.onSortEnd} />
+            <br /> */}
             {this.renderWorkouts()}
           </div>
         ) : (
@@ -171,12 +224,13 @@ export default withTracker((props) => {
   const workoutsSub = Meteor.subscribe('workouts');
   const userSub = Meteor.subscribe('currentUser');
   let workoutsArray;
+
   if (props.match.params.workoutId) {
     workoutsArray = Workouts.find({ _id: props.match.params.workoutId }).fetch();
   } else {
     workoutsArray = Workouts.find({}, { sort: { createdAt: -1 } }).fetch();
   }
-  console.log('USER', Meteor.user());
+
   return {
     currentUser: Meteor.user(),
     ready: workoutsSub.ready() && userSub.ready(),

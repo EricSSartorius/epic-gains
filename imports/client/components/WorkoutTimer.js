@@ -79,7 +79,6 @@ export default class WorkoutTimer extends Component {
     } = this.props;
 
     let hardReset = false;
-    console.log(resting);
     audio1.play();
 
     if (resting) {
@@ -164,13 +163,11 @@ export default class WorkoutTimer extends Component {
           <h2>Exercise Time Remaining</h2>
           <h1 className="number">{this.getTimeSpan(currentTime)}</h1>
         </div>
-        {resting ? (
+        {resting &&
           <div className="timer-rest">
             <h1 className="number">REST</h1>
           </div>
-          ) : (
-          null
-        )}
+        }
         <div className="timer-buttons">
 
           <button onClick={this.toggleTimer}>
@@ -178,6 +175,16 @@ export default class WorkoutTimer extends Component {
           </button>
           <button onClick={() => this.resetTimer(true)}>reset</button>
         </div>
+        {timerInProgress &&
+          <div className="timer-exercises">
+            <div className="current">
+              <h2>CURRENT</h2>
+            </div>
+            <div className="next">
+              <h2>NEXT</h2>
+            </div>
+          </div>
+        }
       </div>
     );
   }
