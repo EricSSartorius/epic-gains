@@ -2,21 +2,23 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { SortableElement } from 'react-sortable-hoc';
+// import { SortableElement } from 'react-sortable-hoc';
 
 class Workout extends Component {
-  state = {
-    editMode: false,
-  }
-
   deleteThisWorkout = () => {
     Meteor.call('workouts.remove', this.props.workout._id);
   }
 
+  goBack = () => {
+    this.props.history.goBack();
+  }
+
   renderEditMode() {
     const {
+      editMode,
       workout,
       handleChange,
       handleSubmit,
@@ -26,7 +28,7 @@ class Workout extends Component {
       <div className="workout panel edit">
         <div className="workout-top">
           <h3>{workout.workoutName}</h3>
-          <button className="icon" >
+          <button className="icon" onClick={this.goBack}>
             <i className="fa fa-times link" />
           </button>
         </div>
@@ -62,20 +64,21 @@ class Workout extends Component {
 
   render() {
     const {
-      workout,
+      editMode,
+      editWorkout,
       handleChange,
       handleSubmit,
+      workout,
     } = this.props;
-
     return (
       <div>
-        {this.state.editMode ? (
+        {editMode ? (
           <div>
             {this.renderEditMode()}
           </div>
         ) : (
           <div className="workout panel" >
-            <Link to={`/workouts/${workout._id}`} className="link">
+            <Link to={`/workouts/${workout._id}`} onClick={editWorkout} className="link">
               <div className="workout-title">
                 <h3>{workout.workoutName}</h3>
                 <p>({workout.workoutFocus})</p>
@@ -92,9 +95,10 @@ class Workout extends Component {
 }
 
 Workout.propTypes = {
+  editMode: PropTypes.bool,
   workout: PropTypes.object,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
 };
 
-export default Workout;
+export default withRouter(Workout);

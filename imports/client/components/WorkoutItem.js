@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 import { SortableElement } from 'react-sortable-hoc';
 
 class WorkoutItem extends Component {
+  static propTypes = {
+    workout: PropTypes.shape.isRequired,
+  }
+
   state = {
   }
   render() {
@@ -12,7 +16,7 @@ class WorkoutItem extends Component {
 
     return (
       <div className="workout panel">
-        <Link to="/workouts/WORKOUTID" className="link">
+        <Link to={`/workouts/${workout.id}`} className="link">
           <div className="workout-title">
             <h3>{workout.workoutName}</h3>
             <p>({workout.workoutFocus})</p>

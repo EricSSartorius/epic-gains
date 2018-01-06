@@ -49,16 +49,20 @@ button,
   background: colors.button
   border none
   border-radius $rounded
-  color: textColor.main
+  color: textColor.button
   padding $padding
   trans()
   &:hover
     background: colors.darken
+    color: textColor.main
   &.add
     background: colors.add
     color: textColor.white
   &.icon
     background none
+  &.delete
+    background: colors.danger
+    color: textColor.white
 
 /* LOGIN */
 #login-buttons

@@ -12,7 +12,9 @@ const MainNav = () =>
       </h2>
       <nav>
         <ul>
-          {Meteor.userId() && <li><Link to="/settings">Settings</Link></li>}
+          {Meteor.userId() &&
+            <li><Link to="/settings">Settings</Link></li>
+          }
           <li><AccountsUIWrapper /></li>
         </ul>
       </nav>

@@ -1,3 +1,5 @@
+/* eslint func-names: 0 */
+
 import { Workouts } from './Workouts';
 import { Meteor } from 'meteor/meteor';
 

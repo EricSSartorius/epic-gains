@@ -27,9 +27,15 @@ class WorkoutPage extends Component {
     workoutFocus: 'Whole Body',
     workoutDescription: '',
     search: '',
-    showMore: false,
+    editMode: false,
     // workouts: [{ workoutName: 'workout 1' }, { workoutName: 'workout 2' }, { workoutName: 'workout 3' }, { workoutName: 'workout 4' }, { workoutName: 'workout 5' }],
   };
+
+  componentDidMount() {
+    // console.log(this.props.match.params);
+    // this.setState({ editMode: this.props.match.params !== {} });
+    // console.log(this.state.editMode);
+  }
 
 
   // onSortEnd = ({ oldIndex, newIndex }) => {
@@ -93,6 +99,10 @@ class WorkoutPage extends Component {
   //   }
   // }
 
+  editWorkout = () => {
+    this.setState({ editMode: !this.state.editMode });
+  }
+
   randomize = () => {
     console.log('RANDOMIZED WORKOUT ORDER');
   }
@@ -103,10 +113,6 @@ class WorkoutPage extends Component {
 
   updateFilter = (event) => {
     console.log('UPDATED FILTER');
-  }
-
-  toggleShowMore = () => {
-    this.setState({ showMore: !this.state.showMore });
   }
 
   renderWorkouts = () => {
@@ -122,6 +128,8 @@ class WorkoutPage extends Component {
           workout={workout}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          editWorkout={this.editWorkout}
+          editMode={this.state.editMode}
         />
       );
     });
@@ -139,12 +147,10 @@ class WorkoutPage extends Component {
       exerciseTime,
       exerciseRestTime,
       setRestTime,
-      timerInProgress,
       workoutName,
       workoutFocus,
       workoutDescription,
       search,
-      showMore,
     } = this.state;
 
     if (!ready) {
@@ -158,7 +164,7 @@ class WorkoutPage extends Component {
 
     return (
       <div className="workout-layout">
-        { currentUser ? (
+        {currentUser ? (
           <div>
             <WorkoutTimer
               numberOfExercises={workouts.length}
@@ -180,7 +186,6 @@ class WorkoutPage extends Component {
               workoutName={workoutName}
               workoutFocus={workoutFocus}
               workoutDescription={workoutDescription}
-              showMore={showMore}
             />
             <Searchbar
               updateSearch={this.updateSearch}
